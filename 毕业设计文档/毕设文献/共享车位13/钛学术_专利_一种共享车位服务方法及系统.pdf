@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>错误页面-钛学术文献服务平台</title>
+    <link rel="stylesheet" href="../statics/layui/css/layui.css">
+    <link rel="stylesheet" href="../statics/css/common.css" >
+</head>
+
+<body>
+<div>
+    <div>
+  <div class="Header">
+    <div class="Header_content clearfix">
+      <div class="header_left">
+        <div style="margin: 15px auto">
+          <div class="logo">
+            <a href="https://doc.taixueshu.com/" class="logo-img">
+              <img
+                src="https://doc.taixueshu.com/statics/images/logo.png"
+                alt="钛学术文献服务平台"
+              />
+            </a>
+            <a href="https://doc.taixueshu.com/">
+              <!-- <img th:attr="src=@{${webPath}+'/statics/images/logo.png'}"  src="../statics/images/logo.png" alt="钛学术文献服务平台" /> -->
+              <div class="logo-tit">
+                <span class="logo-tit-left">钛学术</span
+                ><span class="logo-tit-right">文献服务平台</span>
+              </div>
+            </a>
+          </div>
+          <div class="logo-info">学术出版新技术应用与公共服务实验室出品</div>
+        </div>
+        <div class="tab">
+          <div class="tab-item">
+            <a href="https://doc.taixueshu.com/" class="header_index"
+              >首页</a>
+          </div>
+          <div class="tab-item">
+            <a      
+										style="position: relative;"
+                    href="https://www.xiaomo.com/home?hmsr=DOC"
+                    target="_blank"
+                    class="header_check write-xiaomo"
+                    rel="nofollow"
+            >
+						<img style="position: absolute;right: -14px;top: 7px;width: 41px" src="/statics/images/hot_icon.png" alt="热门">
+						智能改写</a>
+          </div>
+          <div class="tab-item">
+            <a
+							style="position: relative;"
+              href="/check/index?origin=1"
+              target="_blank"
+              class="dup-checking"
+              >	<img style="position: absolute;right: -13px;top: 15px;width: 41px" src="/statics/images/n_free.png" alt="免费"> 论文查重</a
+            >
+          </div>
+          <div class="tab-item">
+            <a
+              class="learned-periodical"
+              href="https://doc.taixueshu.com/journals/"
+              target="_blank"
+              >学术期刊</a
+            >
+          </div>
+          <div class="tab-item">
+            <a
+              class="selected-tc-assist"
+              href="https://doc.taixueshu.com/topic"
+              target="_blank"
+              rel="nofollow"
+              >选题助手</a
+            >
+          </div>
+<!--          <div class="tab-item">-->
+<!--            <a href="https://www.taixueshu.com/" target="_blank">钛学术官网</a>-->
+<!--          </div>-->
+          <!-- <div class="tab-item">
+            <a class="free-ppt" href="https://doc.taixueshu.com/pptMall/" target="_blank">免费PPT</a>
+          </div> -->
+          <div class="tab-item">
+            <a class="task-center" href="/member/missionCenter?origin=1">任务中心</a>
+          </div>
+          <div class="tab-item">
+            <a class="retouch-paper" href="https://retouch.paperpass.com/">论文润色</a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="header_right"
+        style="display:none"
+      >
+        <!--                    <div class="header_bold">APP下载</div>-->
+
+        <!--                     <div class="header_button"> -->
+        <!--                        <a href=""  th:attr="href=@{${webPath}+'/member/index'}"  th:text="${userName}" class="header_login">注册 / 登录</a>-->
+
+        <a
+          style="display:none"
+          class="header_button loginBtn"
+          rel="nofollow" href="https://doc.taixueshu.com/ppLogin"
+          >登录</a>
+        <!--                     </div> -->
+      </div>
+      <div
+        class="header_right"
+        style="display:block"
+      >	
+			
+        <!-- <div class="header_bold">APP下载</div> -->
+        <!-- <div class="header_openvip" th:if="${isVip=='0'}">
+          <a href="" th:attr="href=@{${webPath}+'/member/index'}">
+            <img
+              src="../statics/images/vip-line.png"
+              th:attr="src=@{${webPath}+'/statics/images/vip-line.png'}"
+            />
+            开通会员
+          </a>
+        </div> -->
+        <!-- <div class="header_vip" th:if="${isVip=='1'}">
+          <a href="" th:attr="href=@{${webPath}+'/member/renew'}">
+            <img
+              src="../statics/images/wallet-line.png"
+              th:attr="src=@{${webPath}+'/statics/images/wallet-line.png'}"
+            />
+            续费会员
+          </a>
+        </div> -->
+        <ul class="navbar-nav">
+          <!-- <li>
+                        <a href="#" th:attr="href=@{${webPath}+'/jump.html'}" target="_blank" class="email_a">
+                          <img src="../statics/images/email_ico.png" th:attr="src=@{${webPath}+'/statics/images/email_ico.png'}" >
+                                       <span class="email-warning" th:if="${emailCount>0}" th:text="${emailCount}">4</span>
+                        </a>
+                      </li> -->
+          <li>
+            <a
+              href="https://doc.taixueshu.com/member/index"
+              class="user_a"
+            >
+              <img
+                class="home-user"
+                height="46"
+                width="46"
+                onerror="noFind()"
+                src="https://doc.taixueshu.com/statics/images/homeuser.png"
+                alt="用户头像"
+                id="homeImg"
+              />
+            </a>
+            <div class="userarea">
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="https://doc.taixueshu.com/member/index">
+                    <span class="username"
+                      >PA20230215150021</span
+                    >
+                  </a>
+                </li>
+                <!--                                  <li class="active">-->
+                <!--                                      <a href="" th:attr="href=@{${webPath}+'/member/index'}">会员中心</a>-->
+                <!--                                  </li>-->
+                <li class="header_li">
+                  <a href="https://doc.taixueshu.com/member/index"
+                    >会员中心</a
+                  >
+                </li>
+                <li class="header_li">
+                  <a href="https://doc.taixueshu.com/member/exchange"
+                    >兑换中心</a
+                  >
+                </li>
+                <li class="header_li">
+                  <a href="https://doc.taixueshu.com/member/subscription"
+                    >我的订阅</a
+                  >
+                </li>
+                <li class="header_li">
+                  <a href="https://doc.taixueshu.com/member/collect"
+                    >我的收藏</a
+                  >
+                </li>
+                <li class="header_li">
+                  <a href="https://doc.taixueshu.com/member/buyArticle"
+                    >订单管理</a
+                  >
+                </li>
+								<li>
+									<a href="https://doc.taixueshu.com/member/checkOrder">论文查重</a>
+								</li>
+                <!--                                  <li class="header_li">-->
+                <!--                                      <a href="" th:attr="href=@{${webPath}+':8080/member/emailCenter'}" target="_blank">邮箱中心</a>-->
+                <!--                                  </li>-->
+                <li class="header_li">
+                  <a
+                    style="display:inline-block" href="https://doc.taixueshu.com/ppLogout"
+                    >退出登录</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li style="display: none">
+            <a href="https://doc.taixueshu.com/member/subscription">
+              <span class="warning-img"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+    <div id="tt404" class="error-page">
+        <div style="padding-top:158px" class="fz22 error-code">[错误代码]</div>
+        <div class="code font-bold">404</div>
+        <div class="fz22">抱歉，您访问的页面出错啦！</div>
+        <div class="goback">
+            <a href="javascript:void(0)" id="back" >返回&gt;&gt;</a>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="statics/js/jquery.min.js" ></script>
+<script>
+    var webPath="https:\/\/doc.taixueshu.com";
+    var url=null
+    $(function(){
+
+        $("#back").click(function(){
+            if(webPath!=null && webPath!=''){
+                location.href="/";
+            }else{
+                window.history.back();
+            }
+
+        });
+
+    });
+</script>
+</html>

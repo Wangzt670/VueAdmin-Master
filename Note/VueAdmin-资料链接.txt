@@ -1,0 +1,7 @@
+VueAdmin - 前后端分离后台管理系统
+演示：https://www.markerhub.com/vueadmin
+登陆密码：1234567
+
+前端笔记：https://www.zhuawaba.com/post/18
+后端笔记：https://www.zhuawaba.com/post/19
+源码：https://github.com/markerhub/vueadmin
