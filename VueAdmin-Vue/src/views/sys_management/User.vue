@@ -16,7 +16,8 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('sys:user:save')">新增</el-button>
+<!--        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('sys:user:save')">新增</el-button>-->
+        <el-button type="primary" @click="dialogVisible = true">新增</el-button>
       </el-form-item>
       <el-form-item>
         <el-popconfirm title="确定批量删除吗？" @confirm="delHandle(null)">
@@ -197,23 +198,20 @@ export default {
       //批量删除数组
       multipleSelection: [],
 
-      //分配角色对话框参数声明
+/*      //分配角色对话框参数声明
       roleDialogFormVisible: false,
       defaultProps: {
         children: 'children',
         label: 'name'
       },
       roleForm: {},
-      roleTreeData:  [],
+      roleTreeData:  [],*/
 
     }
   },
   created() {
     this.getUserList()
     this.getRoleList()
-    this.$axios.get("/sys/role/list").then(res => {
-      this.roleTreeData = res.data.data.records
-    })
 
   },
   methods: {

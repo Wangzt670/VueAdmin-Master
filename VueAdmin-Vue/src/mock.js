@@ -563,3 +563,540 @@ Mock.mock(RegExp('/sys/user/info/*'), 'get', () => {
     }
     return Result
 })
+
+
+
+//////////////// 车辆总览 ////////////////
+
+Mock.mock(RegExp('/carman/car/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "username": "test1",
+                "carnum": "渝AHY584",
+                "remark": "红色奔驰",
+            },
+            {
+                "id": 2,
+                "username": "test2",
+                "carnum": "渝AHY584",
+                "remark": "红色奔驰",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+
+Mock.mock(RegExp('/carman/car/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/carman/car/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 2,
+        "username": "test2",
+        "carnum": "渝AHY584",
+        "remark": "红色奔驰",
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/carman/car/getuserlist'), 'get', () => {
+
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "username": "test1",
+
+            },
+            {
+                "id": 2,
+                "username": "test2",
+            }
+        ],
+    }
+    return Result
+})
+
+
+
+//////////////// 我的车辆 ////////////////
+
+Mock.mock(RegExp('/carman/mycar/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "username": "test1",
+                "carnum": "渝AHY584",
+                "remark": "红色奔驰",
+            },
+            {
+                "id": 2,
+                "username": "test2",
+                "carnum": "渝AHY584",
+                "remark": "红色奔驰",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+Mock.mock(RegExp('/carman/mycar/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/carman/mycar/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 2,
+        "username": "test2",
+        "carnum": "渝AHY584",
+        "remark": "红色奔驰",
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/carman/mycar/getuserinfo'), 'get', () => {
+
+    Result.data = {
+        id: "1",
+        username: "test1"
+    }
+
+    return Result
+})
+
+
+
+//////////////// 小区总览 ////////////////
+
+Mock.mock(RegExp('/vilman/village/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "villagename": "锦上华庭",
+                "keyword": "渝北区红叶路锦上华庭",
+                "lng": 116.404,
+                "lat": 39.915,
+                "remark": "渝北区红叶路锦上华庭",
+            },
+            {
+                "id": 2,
+                "villagename": "阳关金典",
+                "keyword": "阳光金典",
+                "lng": 116.404,
+                "lat": 39.915,
+                "remark": "阳光金典",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+Mock.mock(RegExp('/vilman/village/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/vilman/village/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 1,
+        "villagename": "锦上华庭",
+        "keyword": "渝北区红叶路锦上华庭",
+        "lng": 111,
+        "lat": 111,
+        "remark": "渝北区红叶路锦上华庭",
+    }
+    return Result
+})
+
+
+
+//////////////// 我的小区 ////////////////
+
+Mock.mock(RegExp('/vilman/myvillage/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "villagename": "锦上华庭",
+                "keyword": "渝北区红叶路锦上华庭",
+                "lng": 116.404,
+                "lat": 39.915,
+                "remark": "渝北区红叶路锦上华庭",
+            },
+            {
+                "id": 2,
+                "villagename": "阳关金典",
+                "keyword": "阳光金典",
+                "lng": 116.404,
+                "lat": 39.915,
+                "remark": "阳光金典",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+Mock.mock(RegExp('/vilman/myvillage/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/vilman/myvillage/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 1,
+        "villagename": "锦上华庭",
+        "keyword": "渝北区红叶路锦上华庭",
+        "lng": 111,
+        "lat": 111,
+        "remark": "渝北区红叶路锦上华庭",
+    }
+    return Result
+})
+
+
+//////////////// 定位显示 ////////////////
+Mock.mock(RegExp('/locview/locview/getvillagelist'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "villagename": "锦上华庭",
+                "keyword": "渝北区红叶路锦上华庭",
+                "lng": 106.53369,
+                "lat": 29.612911,
+                "remark": "渝北区红叶路锦上华庭",
+            },
+            {
+                "id": 2,
+                "villagename": "阳关金典",
+                "keyword": "阳光金典",
+                "lng": 106.531435,
+                "lat": 29.607992,
+                "remark": "阳光金典",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+
+
+//////////////// 车位总览 ////////////////
+
+Mock.mock(RegExp('/parkman/park/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "parknum": "A区1号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 0,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 2,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+
+Mock.mock(RegExp('/parkman/park/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/parkman/park/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 2,
+        "parknum": "A区2号",
+        "villagename": "锦上华庭",
+        "username": "test2",
+        "statu": 1,
+        "price": 5,
+        "remark": "地上",
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/parkman/park/getuserlist'), 'get', () => {
+
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "username": "test1",
+
+            },
+            {
+                "id": 2,
+                "username": "test2",
+            }
+        ],
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/parkman/park/getvillagelist'), 'get', () => {
+
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "villagename": "锦上华庭",
+                "keyword": "渝北区红叶路锦上华庭",
+                "lng": 106.53369,
+                "lat": 29.612911,
+                "remark": "渝北区红叶路锦上华庭",
+            },
+            {
+                "id": 2,
+                "villagename": "阳光今典",
+                "keyword": "阳光今典",
+                "lng": 106.531435,
+                "lat": 29.607992,
+                "remark": "阳光金典",
+            }
+        ],
+    }
+    return Result
+})
+
+
+//////////////// 我的车位 ////////////////
+
+Mock.mock(RegExp('/parkman/mypark/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "parknum": "A区1号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 0,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 2,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+
+Mock.mock(RegExp('/parkman/mypark/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/parkman/mypark/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 2,
+        "parknum": "A区2号",
+        "villagename": "锦上华庭",
+        "username": "test2",
+        "statu": 1,
+        "price": 5,
+        "remark": "地上",
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/parkman/mypark/getuserinfo'), 'get', () => {
+
+    Result.data = {
+            "id": 1,
+            "username": "test2",
+        }
+    return Result
+})
+
+Mock.mock(RegExp('/parkman/mypark/getvillagelist'), 'get', () => {
+
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "villagename": "锦上华庭",
+                "keyword": "渝北区红叶路锦上华庭",
+                "lng": 106.53369,
+                "lat": 29.612911,
+                "remark": "渝北区红叶路锦上华庭",
+            },
+            {
+                "id": 2,
+                "villagename": "阳光今典",
+                "keyword": "阳光今典",
+                "lng": 106.531435,
+                "lat": 29.607992,
+                "remark": "阳光金典",
+            }
+        ],
+    }
+    return Result
+})
+
+
+
+
+
+//////////////// 订单总览 ////////////////
+
+Mock.mock(RegExp('/ordman/order/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "ordernum":"20230223",
+                "carnum":"渝AHY584",
+                "villagename": "锦上华庭",
+                "parknum": "A区1号",
+                "statu": 0,
+            },
+            {
+                "id": 2,
+                "ordernum":"20230223",
+                "carnum":"渝AHY584",
+                "villagename": "锦上华庭",
+                "parknum": "A区2号",
+                "statu": 1,
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+
+Mock.mock(RegExp('/ordman/order/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/ordman/order/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 2,
+        "ordernum":"20230223",
+        "carnum":"渝AHY584",
+        "villagename": "锦上华庭",
+        "parknum": "A区2号",
+        "statu": 1,
+    }
+    return Result
+})
+
+
+
+
