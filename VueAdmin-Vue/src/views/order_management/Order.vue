@@ -61,6 +61,16 @@
       </el-table-column>
 
       <el-table-column
+          prop="lease"
+          label="出租">
+      </el-table-column>
+
+      <el-table-column
+          prop="rent"
+          label="租用">
+      </el-table-column>
+
+      <el-table-column
           prop="statu"
           label="状态">
         <template slot-scope="scope">
@@ -267,6 +277,11 @@ export default {
 }
 </script>
 
+
 <style scoped>
+.el-pagination {
+  float: right;
+  margin-top: 22px;
+}
 
 </style>

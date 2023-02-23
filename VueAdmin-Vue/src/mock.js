@@ -843,6 +843,101 @@ Mock.mock(RegExp('/locview/locview/getvillagelist'), 'get', () => {
 })
 
 
+Mock.mock(RegExp('/locview/locview/*'), 'post', () => {
+    return Result
+})
+
+
+Mock.mock(RegExp('/locview/locview/getparklist'), 'get', () => {
+
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "parknum": "A区1号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 2,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/locview/locview/parkinfo/*'), 'get', () => {
+    Result.data =
+            {
+                "id": 1,
+                "parknum": "A区1号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            }
+    return Result
+})
+
+Mock.mock(RegExp('/locview/locview/getuserinfo'), 'get', () => {
+
+    Result.data = {
+        "id": 1,
+        "username": "wzt",
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/locview/locview/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "username": "test1",
+                "carnum": "渝AHY584",
+                "remark": "红色奔驰",
+            },
+            {
+                "id": 2,
+                "username": "test1",
+                "carnum": "渝AHY584",
+                "remark": "红色奔驰",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
 
 //////////////// 车位总览 ////////////////
 
@@ -1054,6 +1149,8 @@ Mock.mock(RegExp('/ordman/order/list*'), 'get', () => {
                 "villagename": "锦上华庭",
                 "parknum": "A区1号",
                 "statu": 0,
+                "lease":"wzt",
+                "rent":"wsq",
             },
             {
                 "id": 2,
@@ -1062,6 +1159,8 @@ Mock.mock(RegExp('/ordman/order/list*'), 'get', () => {
                 "villagename": "锦上华庭",
                 "parknum": "A区2号",
                 "statu": 1,
+                "lease":"wzt",
+                "rent":"wsq",
             }
         ],
         "total": 2,
@@ -1093,10 +1192,79 @@ Mock.mock(RegExp('/ordman/order/info/*'), 'get', () => {
         "villagename": "锦上华庭",
         "parknum": "A区2号",
         "statu": 1,
+        "lease":"wzt",
+        "rent":"wsq",
     }
     return Result
 })
 
 
+//////////////// 我的订单 ////////////////
 
+Mock.mock(RegExp('/ordman/myorder/list*'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "ordernum":"20230223",
+                "carnum":"渝AHY584",
+                "villagename": "锦上华庭",
+                "parknum": "A区1号",
+                "statu": 0,
+                "lease":"wzt",
+                "rent":"wsq",
+            },
+            {
+                "id": 2,
+                "ordernum":"20230223",
+                "carnum":"渝AHY584",
+                "villagename": "锦上华庭",
+                "parknum": "A区2号",
+                "statu": 1,
+                "lease":"wzt",
+                "rent":"wsq",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+
+Mock.mock(RegExp('/ordman/myorder/*'), 'post', () => {
+    return Result
+})
+
+Mock.mock(RegExp('/ordman/myorder/info/*'), 'get', () => {
+
+    Result.data = {
+        "id": 2,
+        "ordernum":"20230223",
+        "carnum":"渝AHY584",
+        "villagename": "锦上华庭",
+        "parknum": "A区2号",
+        "statu": 1,
+        "lease":"wzt",
+        "rent":"wsq",
+    }
+    return Result
+})
+
+Mock.mock(RegExp('/ordman/myorder/getuserinfo'), 'get', () => {
+    Result.data = {
+        "id": 1,
+        "username": "test2",
+    }
+    return Result
+})
 
