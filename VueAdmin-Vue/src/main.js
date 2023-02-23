@@ -10,6 +10,10 @@ Vue.use(BaiduMap, {
   ak: 'sdhic8saQoRvzbucbOLHmfKIGLpQVTHC'
 })
 
+import "echarts";
+import ECharts from "vue-echarts";
+Vue.component("ECharts", ECharts);
+
 
 //引入全局功能
 import global from './globalFun'

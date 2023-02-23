@@ -48,6 +48,51 @@ Mock.mock('/logout', 'post', () => {
     return Result
 })
 
+// 主页显示
+
+Mock.mock(RegExp('/index/getvillagelist'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "villagename": "锦上华庭",
+                "keyword": "渝北区红叶路锦上华庭",
+                "lng": 106.53369,
+                "lat": 29.612911,
+                "remark": "渝北区红叶路锦上华庭",
+            },
+            {
+                "id": 2,
+                "villagename": "阳关金典",
+                "keyword": "阳光金典",
+                "lng": 106.531435,
+                "lat": 29.607992,
+                "remark": "阳光金典",
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
+
+
+
+
+
+
+
+
+
 
 // 获取用户菜单以及权限接口
 Mock.mock('/sys/menu/nav', 'get', () => {
@@ -1268,3 +1313,196 @@ Mock.mock(RegExp('/ordman/myorder/getuserinfo'), 'get', () => {
     return Result
 })
 
+
+
+//////////////// 数据统计 ////////////////
+
+
+Mock.mock(RegExp('/sta/staview/ordertotal'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "ordernum":"20230223",
+                "carnum":"渝AHY584",
+                "villagename": "锦上华庭",
+                "parknum": "A区1号",
+                "statu": 0,
+                "lease":"wzt",
+                "rent":"wsq",
+            },
+            {
+                "id": 2,
+                "ordernum":"20230223",
+                "carnum":"渝AHY584",
+                "villagename": "锦上华庭",
+                "parknum": "A区2号",
+                "statu": 1,
+                "lease":"wzt",
+                "rent":"wsq",
+            }
+        ],
+        "total": 10,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+    return Result
+})
+Mock.mock(RegExp('/sta/staview/usertotal'), 'get', () => {
+    Result.data = {
+        "records": [
+        ],
+        "total": 15,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+    return Result
+})
+Mock.mock(RegExp('/sta/staview/villagetotal'), 'get', () => {
+    Result.data = {
+        "records": [
+        ],
+        "total": 20,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+    return Result
+})
+Mock.mock(RegExp('/sta/staview/parktotal'), 'get', () => {
+    Result.data = {
+        "records": [
+        ],
+        "total": 30,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+    return Result
+})
+Mock.mock(RegExp('/sta/staview/cartotal'), 'get', () => {
+    Result.data = {
+        "records": [
+        ],
+        "total": 23,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+    return Result
+})
+
+
+Mock.mock(RegExp('/sta/staview/parklist'), 'get', () => {
+    Result.data = {
+        "records": [
+            {
+                "id": 1,
+                "parknum": "A区1号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 0,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 2,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 3,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 4,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 0,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 5,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 6,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
+                "id": 7,
+                "parknum": "A区2号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 1,
+                "price": 5,
+                "remark": "地上",
+            },
+        ],
+        "total": 7,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+})
