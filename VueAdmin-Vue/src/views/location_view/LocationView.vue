@@ -213,6 +213,7 @@ export default {
   },
   created() {
     this.getVillageList()
+    this.getUserInfo()
   },
   methods: {
 
@@ -318,7 +319,7 @@ export default {
 
     OrderCreateHandle(id){
 
-      this.getUserInfo()
+      /*this.getUserInfo()*/
       this.getCarList()
 
       this.$axios.get('/locview/locview/parkinfo/' + id).then(res => {
