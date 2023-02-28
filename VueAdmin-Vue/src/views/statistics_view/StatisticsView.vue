@@ -4,11 +4,25 @@
     <el-row :gutter="20" type="flex">
 
       <el-col :span="7">
-        <e-charts class="chart1" :option="option1"></e-charts>
+        <el-container>
+          <el-header>
+            <strong>APP主体对象数据统计表</strong>
+          </el-header>
+          <el-main>
+            <e-charts class="chart1" :option="option1"></e-charts>
+          </el-main>
+        </el-container>
       </el-col>
 
       <el-col :span="7">
-        <e-charts class="chart2" :option="option2"></e-charts>
+        <el-container>
+          <el-header>
+            <strong>车位空闲/占用统计饼图</strong>
+          </el-header>
+          <el-main>
+            <e-charts class="chart2" :option="option2"></e-charts>
+          </el-main>
+        </el-container>
       </el-col>
 
     </el-row>
@@ -151,7 +165,7 @@ export default {
         this.countstatu1 =0
         for(var i = 0; i < this.tableDataPark.length; i++){
 
-          if(this.tableDataPark[i]["statu"]==0){
+          if(this.tableDataPark[i]["statu"]==2){
             this.countstatu0+=1
           }
           else if(this.tableDataPark[i]["statu"]==1){
@@ -172,5 +186,12 @@ export default {
 
 .chart2{
   height: 500px;
+}
+
+.el-header{
+  background-color: #B3C0D1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
 }
 </style>

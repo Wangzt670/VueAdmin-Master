@@ -76,7 +76,7 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('ordman:myorder:updata')">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -163,7 +163,6 @@ export default {
     getOrderList() {
       this.$axios.get("/ordman/myorder/list", {
         params: {
-          rent:this.userInfo.username,
           ordernum: this.searchForm.ordernum,
           current: this.current,
           size: this.size

@@ -114,7 +114,6 @@ Mock.mock('/logout', 'post', () => {
 })
 
 // 主页显示
-
 Mock.mock(RegExp('/index/getvillagelist'), 'get', () => {
     Result.data = {
         "records": [
@@ -153,12 +152,6 @@ Mock.mock(RegExp('/index/getvillagelist'), 'get', () => {
 
 
 
-
-
-
-
-
-
 // 获取用户菜单以及权限接口
 Mock.mock('/sys/menu/nav', 'get', () => {
 
@@ -175,7 +168,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'SysUser',
                     title: '用户管理',
                     icon: 'el-icon-s-custom',
-                    path: '/sys/users',
+                    path: '/sys/user',
                     component: 'sys_management/User',
                     children: []
                 },
@@ -183,7 +176,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'SysRole',
                     title: '角色管理',
                     icon: 'el-icon-rank',
-                    path: '/sys/roles',
+                    path: '/sys/role',
                     component: 'sys_management/Role',
                     children: []
                 },
@@ -191,7 +184,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'SysMenu',
                     title: '菜单管理',
                     icon: 'el-icon-menu',
-                    path: '/sys/menus',
+                    path: '/sys/menu',
                       component: 'sys_management/Menu',
                     children: []
                 }
@@ -208,7 +201,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'VilVillage',
                     title: '小区总览',
                     icon: 'el-icon-house',
-                    path: '/vil/villages',
+                    path: '/vilman/village',
                     component: 'village_management/Village',
                     children: []
                 },
@@ -216,7 +209,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'VilMyVillage',
                     title: '我的小区',
                     icon: 'el-icon-house',
-                    path: '/vil/myvillages',
+                    path: '/vilman/myvillage',
                     component: 'village_management/MyVillage',
                     children: []
                 }
@@ -233,7 +226,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'ParPark',
                     title: '车位总览',
                     icon: 'el-icon-full-screen',
-                    path: '/par/parks',
+                    path: '/parkman/park',
                     component: 'park_management/Park',
                     children: []
                 },
@@ -241,7 +234,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'ParMyPark',
                     title: '我的车位',
                     icon: 'el-icon-full-screen',
-                    path: '/par/myparks',
+                    path: '/parkman/mypark',
                     component: 'park_management/MyPark',
                     children: []
                 }
@@ -258,7 +251,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'CarCar',
                     title: '车辆总览',
                     icon: 'el-icon-truck',
-                    path: '/car/cars',
+                    path: '/carman/car',
                     component: 'car_management/Car',
                     children: []
                 },
@@ -266,7 +259,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'CarMyCar',
                     title: '我的车辆',
                     icon: 'el-icon-truck',
-                    path: '/car/mycars',
+                    path: '/carman/mycar',
                     component: 'car_management/MyCar',
                     children: []
                 }
@@ -283,7 +276,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'OrdOrder',
                     title: '订单总览',
                     icon: 'el-icon-tickets',
-                    path: '/ord/orders',
+                    path: '/ordman/order',
                     component: 'order_management/Order',
                     children: []
                 },
@@ -291,7 +284,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'OrdMyOrder',
                     title: '我的订单',
                     icon: 'el-icon-tickets',
-                    path: '/ord/myorders',
+                    path: '/ordman/myorder',
                     component: 'order_management/MyOrder',
                     children: []
                 }
@@ -308,7 +301,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'LocView',
                     title: '定位显示',
                     icon: 'el-icon-location-outline',
-                    path: '/loc/LocationView',
+                    path: '/locview/locview',
                     component: 'location_view/LocationView',
                     children: []
                 }
@@ -325,7 +318,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'StaView',
                     title: '数据显示',
                     icon: 'el-icon-pie-chart',
-                    path: '/sta/StatisticsView',
+                    path: '/sta/staview',
                     component: 'statistics_view/StatisticsView',
                     children: []
                 }
@@ -336,7 +329,28 @@ Mock.mock('/sys/menu/nav', 'get', () => {
 
     //权限信息
 /*    let authoritys = ['sys:user:list', "sys:user:save", "sys:user:delete"]*/
-    let authoritys = ['sys:user:list', "sys:user:save", "sys:user:delete"]
+    let authoritys = ['sys:menu:list','sys:menu:save','sys:menu:updata',
+        'sys:role:list','sys:role:save','sys:role:updata',
+        'sys:user:list','sys:user:save','sys:user:updata',
+
+        'village:village:list','village:village:save','village:village:updata',
+        'village:myvillage:list',
+
+        'carman:car:list','carman:car:save','carman:car:updata',
+        'carman:mycar:list','carman:mycar:save','carman:mycar:updata',
+
+        'parkman:park:list','parkman:park:save','parkman:park:updata',
+        'parkman:mypark:list','parkman:mypark:save','parkman:mypark:updata',
+
+        'ordman:order:list','ordman:order:updata',
+        'ordman:myorder:list','ordman:myorder:updata',
+
+
+        'sta:staview:list',
+
+        'locview:locview:list','locview:locview:save',
+
+    ]
 
     Result.data = {
         nav: nav,
@@ -530,7 +544,6 @@ Mock.mock(RegExp('/sys/menu/info/*'), 'get', () => {
     return Result
 })
 
-
 Mock.mock(RegExp('/sys/menu/*'), 'post', () => {
 
     return Result
@@ -602,8 +615,6 @@ Mock.mock(RegExp('/sys/role/*'), 'post', () => {
 })
 
 
-
-
 //////////////// 用户管理 ////////////////
 
 Mock.mock(RegExp('/sys/user/list*'), 'get', () => {
@@ -651,7 +662,6 @@ Mock.mock(RegExp('/sys/user/list*'), 'get', () => {
     return Result
 })
 
-
 Mock.mock(RegExp('/sys/user/*'), 'post', () => {
     return Result
 })
@@ -674,6 +684,46 @@ Mock.mock(RegExp('/sys/user/info/*'), 'get', () => {
     return Result
 })
 
+Mock.mock(RegExp('/sys/user/getrolelist'), 'get', () => {
+
+    Result.data = {
+        "records": [
+            {
+                "id": 3,
+                "created": "2021-01-04T10:09:14",
+                "updated": "2021-01-30T08:19:52",
+                "statu": 1,
+                "name": "普通用户1",
+                "code": "normal",
+                "remark": "只有基本查看功能",
+                "menuIds": []
+            },
+            {
+                "id": 6,
+                "created": "2021-01-16T13:29:03",
+                "updated": "2021-01-17T15:50:45",
+                "statu": 1,
+                "name": "超级管理员",
+                "code": "admin",
+                "remark": "系统默认最高权限，不可以编辑和任意修改",
+                "menuIds": []
+            }
+        ],
+        "total": 2,
+        "size": 10,
+        "current": 1,
+        "orders": [],
+        "optimizeCountSql": true,
+        "hitCount": false,
+        "countId": null,
+        "maxLimit": null,
+        "searchCount": true,
+        "pages": 1
+    }
+
+    return Result
+
+})
 
 
 //////////////// 车辆总览 ////////////////
@@ -685,12 +735,14 @@ Mock.mock(RegExp('/carman/car/list*'), 'get', () => {
                 "id": 1,
                 "username": "test1",
                 "carnum": "渝AHY584",
+                "statu": 1,
                 "remark": "红色奔驰",
             },
             {
                 "id": 2,
                 "username": "test2",
                 "carnum": "渝AHY584",
+                "statu": 1,
                 "remark": "红色奔驰",
             }
         ],
@@ -709,7 +761,6 @@ Mock.mock(RegExp('/carman/car/list*'), 'get', () => {
     return Result
 })
 
-
 Mock.mock(RegExp('/carman/car/*'), 'post', () => {
     return Result
 })
@@ -720,6 +771,7 @@ Mock.mock(RegExp('/carman/car/info/*'), 'get', () => {
         "id": 2,
         "username": "test2",
         "carnum": "渝AHY584",
+        "statu": 0,
         "remark": "红色奔驰",
     }
     return Result
@@ -754,12 +806,14 @@ Mock.mock(RegExp('/carman/mycar/list*'), 'get', () => {
                 "id": 1,
                 "username": "test1",
                 "carnum": "渝AHY584",
+                "statu": 1,
                 "remark": "红色奔驰",
             },
             {
                 "id": 2,
                 "username": "test2",
                 "carnum": "渝AHY584",
+                "statu": 1,
                 "remark": "红色奔驰",
             }
         ],
@@ -788,6 +842,7 @@ Mock.mock(RegExp('/carman/mycar/info/*'), 'get', () => {
         "id": 2,
         "username": "test2",
         "carnum": "渝AHY584",
+        "statu": 1,
         "remark": "红色奔驰",
     }
     return Result
@@ -817,6 +872,8 @@ Mock.mock(RegExp('/vilman/village/list*'), 'get', () => {
                 "lng": 116.404,
                 "lat": 39.915,
                 "remark": "渝北区红叶路锦上华庭",
+                "statu": 1,
+
             },
             {
                 "id": 2,
@@ -825,6 +882,7 @@ Mock.mock(RegExp('/vilman/village/list*'), 'get', () => {
                 "lng": 116.404,
                 "lat": 39.915,
                 "remark": "阳光金典",
+                "statu": 1,
             }
         ],
         "total": 2,
@@ -854,6 +912,7 @@ Mock.mock(RegExp('/vilman/village/info/*'), 'get', () => {
         "keyword": "渝北区红叶路锦上华庭",
         "lng": 111,
         "lat": 111,
+        "statu": 1,
         "remark": "渝北区红叶路锦上华庭",
     }
     return Result
@@ -872,6 +931,7 @@ Mock.mock(RegExp('/vilman/myvillage/list*'), 'get', () => {
                 "keyword": "渝北区红叶路锦上华庭",
                 "lng": 116.404,
                 "lat": 39.915,
+                "statu": 1,
                 "remark": "渝北区红叶路锦上华庭",
             },
             {
@@ -880,6 +940,7 @@ Mock.mock(RegExp('/vilman/myvillage/list*'), 'get', () => {
                 "keyword": "阳光金典",
                 "lng": 116.404,
                 "lat": 39.915,
+                "statu": 1,
                 "remark": "阳光金典",
             }
         ],
@@ -910,6 +971,7 @@ Mock.mock(RegExp('/vilman/myvillage/info/*'), 'get', () => {
         "keyword": "渝北区红叶路锦上华庭",
         "lng": 111,
         "lat": 111,
+        "statu": 1,
         "remark": "渝北区红叶路锦上华庭",
     }
     return Result
@@ -952,13 +1014,11 @@ Mock.mock(RegExp('/locview/locview/getvillagelist'), 'get', () => {
     return Result
 })
 
-
 Mock.mock(RegExp('/locview/locview/*'), 'post', () => {
     return Result
 })
 
-
-Mock.mock(RegExp('/locview/locview/getparklist'), 'get', () => {
+Mock.mock(RegExp('/locview/locview/getparklist/*'), 'get', () => {
 
     Result.data = {
         "records": [
@@ -966,7 +1026,7 @@ Mock.mock(RegExp('/locview/locview/getparklist'), 'get', () => {
                 "id": 1,
                 "parknum": "A区1号",
                 "villagename": "锦上华庭",
-                "username": "test2",
+                "username": "test1",
                 "statu": 1,
                 "price": 5,
                 "remark": "地上",
@@ -1018,7 +1078,7 @@ Mock.mock(RegExp('/locview/locview/getuserinfo'), 'get', () => {
     return Result
 })
 
-Mock.mock(RegExp('/locview/locview/list*'), 'get', () => {
+Mock.mock(RegExp('/locview/locview/getcarlist'), 'get', () => {
     Result.data = {
         "records": [
             {
@@ -1048,6 +1108,7 @@ Mock.mock(RegExp('/locview/locview/list*'), 'get', () => {
 
     return Result
 })
+
 
 //////////////// 车位总览 ////////////////
 
@@ -1064,6 +1125,15 @@ Mock.mock(RegExp('/parkman/park/list*'), 'get', () => {
                 "remark": "地上",
             },
             {
+                "id": 1,
+                "parknum": "A区1号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 2,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
                 "id": 2,
                 "parknum": "A区2号",
                 "villagename": "锦上华庭",
@@ -1073,7 +1143,7 @@ Mock.mock(RegExp('/parkman/park/list*'), 'get', () => {
                 "remark": "地上",
             }
         ],
-        "total": 2,
+        "total": 3,
         "size": 10,
         "current": 1,
         "orders": [],
@@ -1087,7 +1157,6 @@ Mock.mock(RegExp('/parkman/park/list*'), 'get', () => {
 
     return Result
 })
-
 
 Mock.mock(RegExp('/parkman/park/*'), 'post', () => {
     return Result
@@ -1166,6 +1235,15 @@ Mock.mock(RegExp('/parkman/mypark/list*'), 'get', () => {
                 "remark": "地上",
             },
             {
+                "id": 1,
+                "parknum": "A区1号",
+                "villagename": "锦上华庭",
+                "username": "test2",
+                "statu": 2,
+                "price": 5,
+                "remark": "地上",
+            },
+            {
                 "id": 2,
                 "parknum": "A区2号",
                 "villagename": "锦上华庭",
@@ -1175,7 +1253,7 @@ Mock.mock(RegExp('/parkman/mypark/list*'), 'get', () => {
                 "remark": "地上",
             }
         ],
-        "total": 2,
+        "total": 3,
         "size": 10,
         "current": 1,
         "orders": [],
@@ -1189,7 +1267,6 @@ Mock.mock(RegExp('/parkman/mypark/list*'), 'get', () => {
 
     return Result
 })
-
 
 Mock.mock(RegExp('/parkman/mypark/*'), 'post', () => {
     return Result
@@ -1498,7 +1575,7 @@ Mock.mock(RegExp('/sta/staview/parklist'), 'get', () => {
                 "parknum": "A区1号",
                 "villagename": "锦上华庭",
                 "username": "test2",
-                "statu": 0,
+                "statu": 2,
                 "price": 5,
                 "remark": "地上",
             },
@@ -1525,7 +1602,7 @@ Mock.mock(RegExp('/sta/staview/parklist'), 'get', () => {
                 "parknum": "A区2号",
                 "villagename": "锦上华庭",
                 "username": "test2",
-                "statu": 0,
+                "statu": 2,
                 "price": 5,
                 "remark": "地上",
             },

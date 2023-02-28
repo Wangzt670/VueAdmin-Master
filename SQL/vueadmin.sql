@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : Mysql
  Source Server Type    : MySQL
  Source Server Version : 50738
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50738
  File Encoding         : 65001
 
- Date: 27/02/2023 18:43:56
+ Date: 01/03/2023 00:15:01
 */
 
 SET NAMES utf8mb4;
@@ -25,18 +25,19 @@ CREATE TABLE `car`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `carnum` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '车牌号',
   `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键用户',
+  `statu` int(5) NOT NULL COMMENT '状态(0：禁用，1：正常)',
   `remark` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `carnum`(`carnum`) USING BTREE,
   INDEX `car_username`(`username`) USING BTREE,
   CONSTRAINT `car_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of car
 -- ----------------------------
-INSERT INTO `car` VALUES (1, '渝AHY584', '王正霆', '红色奔驰');
-INSERT INTO `car` VALUES (2, '渝AHY583', '王正霆', NULL);
+INSERT INTO `car` VALUES (1, '渝AHY584', '王正霆', 1, '红色奔驰');
+INSERT INTO `car` VALUES (2, '渝AHY583', '王正霆', 1, NULL);
 
 -- ----------------------------
 -- Table structure for menu
@@ -53,31 +54,61 @@ CREATE TABLE `menu`  (
   `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单组件',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, 0, '系统管理', NULL, 'el-icon-s-tools', 0, NULL, NULL);
-INSERT INTO `menu` VALUES (2, 1, '用户管理', NULL, 'el-icon-s-custom', 1, '/sys/users', 'sys_management/User');
-INSERT INTO `menu` VALUES (3, 1, '角色管理', NULL, 'el-icon-rank', 1, '/sys/roles', 'sys_management/Role');
-INSERT INTO `menu` VALUES (4, 1, '菜单管理', NULL, 'el-icon-menu', 1, '/sys/menus', 'sys_management/Menu');
-INSERT INTO `menu` VALUES (5, 0, '小区管理', NULL, 'el-icon-s-platform', 0, NULL, NULL);
-INSERT INTO `menu` VALUES (6, 5, '小区总览', NULL, 'el-icon-house', 1, '/vil/villages', 'village_management/Village');
-INSERT INTO `menu` VALUES (7, 5, '我的小区', NULL, 'el-icon-house', 1, '/vil/myvillages', 'village_management/MyVillage');
-INSERT INTO `menu` VALUES (8, 0, '车位管理', NULL, 'el-icon-s-flag', 0, NULL, NULL);
-INSERT INTO `menu` VALUES (9, 8, '车位总览', NULL, 'el-icon-full-screen', 1, '/par/parks', 'park_management/Park');
-INSERT INTO `menu` VALUES (10, 8, '我的车位', NULL, 'el-icon-full-screen', 1, '/par/myparks', 'park_management/MyPark');
-INSERT INTO `menu` VALUES (11, 0, '车辆管理', NULL, 'el-icon-s-promotion', 0, NULL, NULL);
-INSERT INTO `menu` VALUES (12, 11, '车辆总览', NULL, 'el-icon-truck', 1, '/car/cars', 'car_management/Car');
-INSERT INTO `menu` VALUES (13, 11, '我的车辆', NULL, 'el-icon-truck', 1, '/car/mycars', 'car_management/MyCar');
-INSERT INTO `menu` VALUES (14, 0, '订单管理', NULL, 'el-icon-s-order', 0, NULL, NULL);
-INSERT INTO `menu` VALUES (15, 14, '订单总览', NULL, 'el-icon-tickets', 1, '/ord/orders', 'order_management/Order');
-INSERT INTO `menu` VALUES (16, 14, '我的订单', NULL, 'el-icon-tickets', 1, '/ord/myorders', 'order_management/MyOrder');
-INSERT INTO `menu` VALUES (17, 0, '定位显示', NULL, 'el-icon-location', 0, NULL, NULL);
-INSERT INTO `menu` VALUES (18, 17, '定位查找', NULL, 'el-icon-location-outline', 1, '/loc/LocationView', 'location_view/LocationView');
-INSERT INTO `menu` VALUES (19, 0, '数据显示', NULL, 'el-icon-s-data', 0, NULL, NULL);
-INSERT INTO `menu` VALUES (20, 19, '数据图表', NULL, 'el-icon-pie-chart', 1, '/sta/StatisticsView', 'statistics_view/StatisticsView');
+INSERT INTO `menu` VALUES (1, 0, '系统管理', 'sys:manage', 'el-icon-s-tools', 0, NULL, NULL);
+INSERT INTO `menu` VALUES (2, 1, '用户管理', 'sys:user:list', 'el-icon-s-custom', 1, '/sys/user', 'sys_management/User');
+INSERT INTO `menu` VALUES (3, 1, '角色管理', 'sys:role:list', 'el-icon-rank', 1, '/sys/role', 'sys_management/Role');
+INSERT INTO `menu` VALUES (4, 1, '菜单管理', 'sys:menu:list', 'el-icon-menu', 1, '/sys/menu', 'sys_management/Menu');
+INSERT INTO `menu` VALUES (5, 0, '小区管理', 'vilman:manage', 'el-icon-s-platform', 0, NULL, NULL);
+INSERT INTO `menu` VALUES (6, 5, '小区总览', 'vilman:village:list', 'el-icon-house', 1, '/vilman/village', 'village_management/Village');
+INSERT INTO `menu` VALUES (7, 5, '我的小区', 'vilman:myvillage:list', 'el-icon-house', 1, '/vilman/myvillage', 'village_management/MyVillage');
+INSERT INTO `menu` VALUES (8, 0, '车位管理', 'parkman:manage', 'el-icon-s-flag', 0, NULL, NULL);
+INSERT INTO `menu` VALUES (9, 8, '车位总览', 'parkman:park:list', 'el-icon-full-screen', 1, '/parkman/park', 'park_management/Park');
+INSERT INTO `menu` VALUES (10, 8, '我的车位', 'parkman:mypark:list', 'el-icon-full-screen', 1, '/parkman/mypark', 'park_management/MyPark');
+INSERT INTO `menu` VALUES (11, 0, '车辆管理', 'carman:manage', 'el-icon-s-promotion', 0, NULL, NULL);
+INSERT INTO `menu` VALUES (12, 11, '车辆总览', 'carman:car:list', 'el-icon-truck', 1, '/carman/car', 'car_management/Car');
+INSERT INTO `menu` VALUES (13, 11, '我的车辆', 'carman:mycar:list', 'el-icon-truck', 1, '/carman/mycar', 'car_management/MyCar');
+INSERT INTO `menu` VALUES (14, 0, '订单管理', 'ordman:manage', 'el-icon-s-order', 0, NULL, NULL);
+INSERT INTO `menu` VALUES (15, 14, '订单总览', 'ordman:order:list', 'el-icon-tickets', 1, '/ordman/order', 'order_management/Order');
+INSERT INTO `menu` VALUES (16, 14, '我的订单', 'ordman:myorder:list', 'el-icon-tickets', 1, '/ordman/myorder', 'order_management/MyOrder');
+INSERT INTO `menu` VALUES (17, 0, '定位显示', 'locview:manage', 'el-icon-location', 0, NULL, NULL);
+INSERT INTO `menu` VALUES (18, 17, '定位查找', 'locview:locview:list', 'el-icon-location-outline', 1, '/locview/locview', 'location_view/LocationView');
+INSERT INTO `menu` VALUES (19, 0, '数据显示', 'sta:manage', 'el-icon-s-data', 0, NULL, NULL);
+INSERT INTO `menu` VALUES (20, 19, '数据图表', 'sta:staview:list', 'el-icon-pie-chart', 1, '/sta/staview', 'statistics_view/StatisticsView');
+INSERT INTO `menu` VALUES (21, 4, '新建菜单', 'sys:menu:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (22, 4, '编辑菜单', 'sys:menu:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (23, 4, '删除菜单', 'sys:menu:dalete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (24, 3, '新建角色', 'sys:role:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (25, 3, '编辑角色', 'sys:role:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (26, 3, '删除角色', 'sys:role:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (27, 2, '新建用户', 'sys:user:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (28, 2, '编辑用户', 'sys:user:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (29, 2, '删除用户', 'sys:user:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (30, 6, '总览-新建小区', 'vilman:village:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (31, 6, '总览-编辑小区', 'vilman:village:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (32, 6, '总览-删除小区', 'vilman:village:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (33, 7, '我的-新建小区', 'vilman:myvillage:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (34, 7, '我的-编辑小区', 'vilman:myvillage:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (35, 7, '我的-删除小区', 'vilman:myvillage:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (36, 12, '总览-新建车辆', 'carman:car:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (37, 12, '总览-编辑车辆', 'carman:car:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (38, 12, '总览-删除车辆', 'carman:car:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (39, 13, '我的-新建车辆', 'carman:mycar:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (40, 13, '我的-编辑车辆', 'carman:mycar:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (41, 13, '我的-删除车辆', 'carman:mycar:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (42, 9, '总览-新建车位', 'parkman:park:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (43, 9, '总览-编辑车位', 'parkman:park:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (44, 9, '总览-删除车位', 'parkman:park:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (45, 10, '我的-新建车位', 'parkman:mypark:save', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (46, 10, '我的-编辑车位', 'parkman:mypark:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (47, 10, '我的-删除车位', 'parkman:mypark:delete', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (48, 15, '总览-编辑订单', 'ordman:order:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (49, 16, '我的-编辑订单', 'ordman:myorder:updata', NULL, 2, NULL, NULL);
+INSERT INTO `menu` VALUES (50, 18, '创建订单', 'locview:locview:save', NULL, 2, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for order
@@ -104,7 +135,7 @@ CREATE TABLE `order`  (
   CONSTRAINT `order_parknum` FOREIGN KEY (`parknum`) REFERENCES `park` (`parknum`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_rent` FOREIGN KEY (`rent`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_villagename` FOREIGN KEY (`villagename`) REFERENCES `village` (`villagename`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of order
@@ -121,8 +152,8 @@ CREATE TABLE `park`  (
   `parknum` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '车位编号',
   `villagename` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键小区名称',
   `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键用户名称',
-  `statu` int(5) NOT NULL COMMENT '状态(0：占用；1：空闲)',
-  `price` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '价格',
+  `statu` int(5) NOT NULL COMMENT '状态(0：禁用；1：空闲；2：占用)',
+  `price` int(5) NOT NULL COMMENT '价格',
   `remark` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `parknum`(`parknum`) USING BTREE,
@@ -130,13 +161,13 @@ CREATE TABLE `park`  (
   INDEX `park_username`(`username`) USING BTREE,
   CONSTRAINT `park_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `park_villagename` FOREIGN KEY (`villagename`) REFERENCES `village` (`villagename`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of park
 -- ----------------------------
-INSERT INTO `park` VALUES (1, 'A区1号', '锦上华庭', '王正霆', 1, '5元/小时', '地下车位');
-INSERT INTO `park` VALUES (2, 'A区2号', '锦上华庭', '王正霆', 0, '5元/小时', '地下车位');
+INSERT INTO `park` VALUES (1, 'A区1号', '锦上华庭', '王正霆', 1, 5, '地下车位');
+INSERT INTO `park` VALUES (2, 'A区2号', '锦上华庭', '王正霆', 0, 5, '地下车位');
 
 -- ----------------------------
 -- Table structure for role
@@ -150,7 +181,7 @@ CREATE TABLE `role`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE,
   UNIQUE INDEX `code`(`code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role
@@ -167,7 +198,7 @@ CREATE TABLE `role_menu`  (
   `role_id` bigint(20) NOT NULL COMMENT 'role表单主键',
   `menu_id` bigint(20) NOT NULL COMMENT 'menu表单主键',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 150 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 150 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_menu
@@ -222,7 +253,7 @@ CREATE TABLE `role_user`  (
   `role_id` bigint(20) NOT NULL COMMENT 'role表单主键',
   `user_id` bigint(20) NOT NULL COMMENT 'user表单主键',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_user
@@ -244,7 +275,7 @@ CREATE TABLE `user`  (
   `statu` int(5) NOT NULL COMMENT '用户状态(1正常；0禁用)',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_USERNAME`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
@@ -263,14 +294,15 @@ CREATE TABLE `village`  (
   `keyword` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '小区地址',
   `lng` float NOT NULL COMMENT '坐标纬度',
   `lat` float NOT NULL COMMENT '坐标经度',
+  `statu` int(5) NOT NULL COMMENT '状态(0：禁用，1：正常)',
   `remark` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `villagename`(`villagename`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of village
 -- ----------------------------
-INSERT INTO `village` VALUES (1, '锦上华庭', '重庆市渝北区红叶路锦上华庭', 106.534, 29.6129, '新世纪超市对面');
+INSERT INTO `village` VALUES (1, '锦上华庭', '重庆市渝北区红叶路锦上华庭', 106.534, 29.6129, 1, '新世纪超市对面');
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -16,11 +16,11 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="dialogVisible = true">新增</el-button>
+        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('parkman:park:save')">新增</el-button>
       </el-form-item>
       <el-form-item>
         <el-popconfirm title="确定批量删除吗？" @confirm="delHandle(null)">
-          <el-button type="danger" slot="reference" :disabled="delBtlStatu">批量删除</el-button>
+          <el-button type="danger" slot="reference" :disabled="delBtlStatu"v-if="hasAuth('parkman:park:delete')">批量删除</el-button>
         </el-popconfirm>
       </el-form-item>
     </el-form>
@@ -60,13 +60,14 @@
           label="状态">
         <template slot-scope="scope">
           <el-tag size="small" v-if="scope.row.statu === 1" type="success">空闲</el-tag>
-          <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">占用</el-tag>
+          <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
+          <el-tag size="small" v-else-if="scope.row.statu === 2" type="info">占用</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column
           prop="price"
-          label="价格">
+          label="价格/小时">
       </el-table-column>
 
       <el-table-column
@@ -80,13 +81,13 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('parkman:park:updata')">编辑</el-button>
 
           <el-divider direction="vertical"></el-divider>
 
           <template>
             <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row.id)">
-              <el-button type="text" slot="reference">删除</el-button>
+              <el-button type="text" slot="reference"v-if="hasAuth('parkman:park:delete')">删除</el-button>
             </el-popconfirm>
           </template>
 
@@ -136,13 +137,14 @@
 
         <el-form-item label="状态"  prop="statu">
           <el-radio-group v-model="editForm.statu">
+            <el-radio :label="0">禁用</el-radio>
             <el-radio :label="1">空闲</el-radio>
-            <el-radio :label="0">占用</el-radio>
+            <el-radio :label="2">占用</el-radio>
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="价格"  prop="price">
-          <el-input v-model="editForm.price" autocomplete="off"></el-input>
+        <el-form-item label="价格/小时"  prop="price">
+          <el-input v-model.number="editForm.price" autocomplete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="描述"  prop="remark">
@@ -194,7 +196,8 @@ export default {
           {required: true, message: '请选择状态', trigger: 'blur'}
         ],
         price: [
-          {required: true, message: '请输入价格', trigger: 'blur'}
+          {required: true, message: '请输入价格', trigger: 'blur'},
+          { type:"number" ,min: 0, max: 8, message: '请输入合适价格(0-8元/小时)', trigger: 'blur' }
         ],
       },
 

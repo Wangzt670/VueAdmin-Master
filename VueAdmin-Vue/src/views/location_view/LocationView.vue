@@ -72,7 +72,7 @@
 
               <el-table-column
                   prop="price"
-                  label="价格">
+                  label="价格/小时">
               </el-table-column>
 
               <el-table-column
@@ -86,7 +86,7 @@
                   label="操作">
 
                 <template slot-scope="scope">
-                  <el-button type="text" @click="OrderCreateHandle(scope.row.id)">创建订单</el-button>
+                  <el-button type="text" @click="OrderCreateHandle(scope.row.id)"v-if="hasAuth('locview:locview:save')">创建订单</el-button>
                 </template>
               </el-table-column>
 
@@ -252,7 +252,7 @@ export default {
     },
 
 
-    getParkList(){
+/*    getParkList(){
       this.$axios.get("/locview/locview/getparklist", {
         params: {
           id:this.currentVillageID,
@@ -261,6 +261,16 @@ export default {
           size: this.size
         }
       }).then(res => {
+        this.tableDataPark = res.data.data.records
+        this.size = res.data.data.size
+        this.current = res.data.data.current
+        this.total = res.data.data.total
+      })
+    },*/
+
+    getParkList(){
+      console.log(this.currentVillageID)
+      this.$axios.get("/locview/locview/getparklist"+this.currentVillageID).then(res => {
         this.tableDataPark = res.data.data.records
         this.size = res.data.data.size
         this.current = res.data.data.current
@@ -287,15 +297,8 @@ export default {
       })
     },
 
-    //更新以及查询
     getCarList() {
-      this.$axios.get("/locview/locview/list", {
-        params: {
-          username:this.userInfo.username,
-          current: this.current,
-          size: this.size
-        }
-      }).then(res => {
+      this.$axios.get("/locview/locview/getcarlist").then(res => {
         this.tableDataCar = res.data.data.records
         this.size = res.data.data.size
         this.current = res.data.data.current
@@ -318,8 +321,6 @@ export default {
     },
 
     OrderCreateHandle(id){
-
-      /*this.getUserInfo()*/
       this.getCarList()
 
       this.$axios.get('/locview/locview/parkinfo/' + id).then(res => {

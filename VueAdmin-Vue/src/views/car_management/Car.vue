@@ -16,11 +16,11 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="dialogVisible = true">新增</el-button>
+        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('carman:car:save')">新增</el-button>
       </el-form-item>
       <el-form-item>
         <el-popconfirm title="确定批量删除吗？" @confirm="delHandle(null)">
-          <el-button type="danger" slot="reference" :disabled="delBtlStatu">批量删除</el-button>
+          <el-button type="danger" slot="reference" :disabled="delBtlStatu"v-if="hasAuth('carman:car:delete')">批量删除</el-button>
         </el-popconfirm>
       </el-form-item>
     </el-form>
@@ -51,6 +51,15 @@
       </el-table-column>
 
       <el-table-column
+          prop="statu"
+          label="状态">
+        <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.statu === 1" type="success">正常</el-tag>
+          <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column
           prop="remark"
           label="描述">
       </el-table-column>
@@ -61,13 +70,13 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('carman:car:updata')">编辑</el-button>
 
           <el-divider direction="vertical"></el-divider>
 
           <template>
             <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row.id)">
-              <el-button type="text" slot="reference">删除</el-button>
+              <el-button type="text" slot="reference"v-if="hasAuth('carman:car:delete')">删除</el-button>
             </el-popconfirm>
           </template>
 
@@ -105,6 +114,13 @@
               <el-option :label="item.username" :value="item.id"></el-option>
             </template>
           </el-select>
+        </el-form-item>
+
+        <el-form-item label="状态"  prop="statu">
+          <el-radio-group v-model="editForm.statu">
+            <el-radio :label="1">正常</el-radio>
+            <el-radio :label="0">禁用</el-radio>
+          </el-radio-group>
         </el-form-item>
 
         <el-form-item label="描述"  prop="remark">
@@ -150,6 +166,9 @@ export default {
         ],
         carnum: [
           {required: true, message: '请输入车牌号', trigger: 'blur'}
+        ],
+        statu: [
+          {required: true, message: '请选择状态', trigger: 'blur'}
         ]
       },
 

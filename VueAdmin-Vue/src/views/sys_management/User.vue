@@ -16,12 +16,11 @@
       </el-form-item>
 
       <el-form-item>
-<!--        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('sys:user:save')">新增</el-button>-->
-        <el-button type="primary" @click="dialogVisible = true">新增</el-button>
+        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('sys:user:save')">新增</el-button>
       </el-form-item>
       <el-form-item>
         <el-popconfirm title="确定批量删除吗？" @confirm="delHandle(null)">
-          <el-button type="danger" slot="reference" :disabled="delBtlStatu">批量删除</el-button>
+          <el-button type="danger" slot="reference" :disabled="delBtlStatu"v-if="hasAuth('sys:user:delete')">批量删除</el-button>
         </el-popconfirm>
       </el-form-item>
     </el-form>
@@ -78,13 +77,13 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('sys:user:updata')">编辑</el-button>
 
           <el-divider direction="vertical"></el-divider>
 
           <template>
             <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row.id)">
-              <el-button type="text" slot="reference">删除</el-button>
+              <el-button type="text" slot="reference"v-if="hasAuth('sys:user:delete')">删除</el-button>
             </el-popconfirm>
           </template>
 
@@ -212,7 +211,6 @@ export default {
   created() {
     this.getUserList()
     this.getRoleList()
-
   },
   methods: {
     //?
@@ -226,7 +224,7 @@ export default {
       }
     },*/
     getRoleList() {
-      this.$axios.get("/sys/role/list").then(res => {
+      this.$axios.get("/sys/user/getrolelist").then(res => {
         this.tableDataRole = res.data.data.records
       })
     },
