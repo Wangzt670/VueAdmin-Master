@@ -1,6 +1,3 @@
-/*通过@mapperScan注解指定要变成实现类的接口所在的包，
-然后包下面的所有接口在编译之后都会生成相应的实现类。*/
-
 package com.vueadmin.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -22,9 +19,17 @@ public class MybatisPlusConfig {
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
+
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 分页插件
+/*        //分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+
+        // 防止全表更新和删除
+        interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());*/
+
+        //分页插件
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+
         // 防止全表更新和删除
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;

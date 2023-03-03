@@ -1,6 +1,5 @@
 package com.vueadmin.controller;
 
-
 import com.vueadmin.common.lang.Result;
 import com.vueadmin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ public class TestController {
     @Autowired
     UserService userService;
     @GetMapping("/test")
-    public Result test(){
+    public Result test() {
         return Result.succ(userService.list());
     }
 }

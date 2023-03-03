@@ -10,18 +10,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+/*    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public Result handler(AccessDeniedException e) {
+        log.info("security权限不足：----------------{}", e.getMessage());
+        return Result.fail("权限不足");
+    }
 
-/*    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public Result handler(MethodArgumentNotValidException e) {
-
-        BindingResult result = e.getBindingResult();
-        ObjectError objectError = result.getAllErrors().stream().findFirst().get();
-
-        log.error("实体校验异常：----------------{}", objectError.getDefaultMessage());
+        log.info("实体校验异常：----------------{}", e.getMessage());
+        BindingResult bindingResult = e.getBindingResult();
+        ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
         return Result.fail(objectError.getDefaultMessage());
     }*/
 
@@ -35,7 +41,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = RuntimeException.class)
     public Result handler(RuntimeException e) {
-        log.error("运行时异常：----------------{}", e.getMessage());
+        log.error("运行时异常：----------------{}", e);
         return Result.fail(e.getMessage());
     }
 }

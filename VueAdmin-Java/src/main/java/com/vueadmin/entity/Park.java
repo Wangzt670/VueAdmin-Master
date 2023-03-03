@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
  * 
  * </p>
  *
- * @author 王正霆201942429
- * @since 2023-02-28
+ * @author 计科5班王正霆20194249
+ * @since 2023-03-03
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -34,14 +34,14 @@ public class Park extends BaseEntity {
     private String username;
 
     /**
-     * 状态(0：占用；1：空闲)
+     * 状态(0：禁用；1：空闲；2：占用)
      */
     private Integer statu;
 
     /**
      * 价格
      */
-    private String price;
+    private Integer price;
 
     /**
      * 描述

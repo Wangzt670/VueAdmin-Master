@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
  * 
  * </p>
  *
- * @author 王正霆201942429
- * @since 2023-02-28
+ * @author 计科5班王正霆20194249
+ * @since 2023-03-03
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -27,6 +27,11 @@ public class Car extends BaseEntity {
      * 外键用户
      */
     private String username;
+
+    /**
+     * 状态(0：禁用，1：正常)
+     */
+    private Integer statu;
 
     /**
      * 备注
