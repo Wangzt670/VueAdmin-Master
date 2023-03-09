@@ -79,6 +79,8 @@
 </template>
 
 <script>
+import qs from 'qs'
+
 export default {
   name: "Login",
   data() {
@@ -122,7 +124,30 @@ export default {
     };
   },
   methods: {
+
+
     submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //提交表单
+          this.$axios.post('/login?'+qs.stringify(this.loginForm)).then(res => {
+
+            console.log(res)
+
+            const jwt = res.headers['authorization']
+            // 调用SET_TOKEN方法将jwt存储到应用store中
+            this.$store.commit('SET_TOKEN', jwt)
+            this.$router.push("/index")
+          })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+
+    //纯前端登录
+/*    submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交表单
@@ -140,7 +165,7 @@ export default {
           return false;
         }
       });
-    },
+    },*/
 
     getCaptcha() {
       this.$axios.get('/captcha').then(res => {
@@ -150,7 +175,7 @@ export default {
 
         this.loginForm.token = res.data.data.token
         this.captchaImg = res.data.data.captchaImg
-/*        this.loginForm.code = ''*/
+        this.loginForm.code = ''
       })
     },
 

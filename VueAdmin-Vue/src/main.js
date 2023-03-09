@@ -32,7 +32,7 @@ Vue.prototype.$axios = axios //
 Vue.config.productionTip = false
 
 //调用mock测试
-require("./mock.js")
+/*require("./mock.js")*/
 
 new Vue({
   router,
