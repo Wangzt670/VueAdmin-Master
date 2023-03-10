@@ -6,6 +6,7 @@ import cn.hutool.core.map.MapUtil;
 import com.google.code.kaptcha.Producer;
 import com.vueadmin.common.lang.Const;
 import com.vueadmin.common.lang.Result;
+import com.vueadmin.entity.User;
 import com.vueadmin.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 
 
 @RestController
@@ -33,6 +35,10 @@ public class AuthController extends BaseController{
         //生成5位数验证码
         String code = producer.createText();
 
+        //测试
+        key = "aaaaa";
+        code = "11111";
+
         BufferedImage image =producer.createImage(code);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ImageIO.write(image,"jpg",outputStream);
@@ -50,6 +56,18 @@ public class AuthController extends BaseController{
                         .put("token",key)
                         .put("captchaImg",base64Img)
                         .build()
+        );
+    }
+
+
+    @GetMapping("/sys/userInfo")
+    public Result userInfo(Principal principal){
+        User user = userService.getByUsername(principal.getName());
+
+        return Result.succ(MapUtil.builder()
+                .put("id", user.getId())
+                .put("username", user.getUsername())
+                .map()
         );
     }
 }

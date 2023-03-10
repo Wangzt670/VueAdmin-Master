@@ -1,8 +1,12 @@
 package com.vueadmin.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -52,6 +56,9 @@ public class Menu extends BaseEntity {
      * 菜单组件
      */
     private String component;
+
+    @TableField(exist = false)
+    private List<Menu> children = new ArrayList<>();
 
 
 }

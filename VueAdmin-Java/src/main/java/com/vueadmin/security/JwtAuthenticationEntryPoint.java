@@ -3,7 +3,7 @@ package com.vueadmin.security;
 import cn.hutool.json.JSONUtil;
 import com.vueadmin.common.lang.Result;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class LoginFailureHandler implements AuthenticationFailureHandler {
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
         response.setContentType("application/json;charset=UTF-8");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         ServletOutputStream outputStream = response.getOutputStream();
 
-//        Result result = Result.fail(exception.getMessage());
-        Result result = Result.fail("用户名或密码错误");
+        Result result = Result.fail("请先登录");
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes("UTF-8"));
 
