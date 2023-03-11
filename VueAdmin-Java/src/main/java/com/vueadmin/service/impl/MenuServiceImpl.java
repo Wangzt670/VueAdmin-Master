@@ -1,6 +1,7 @@
 package com.vueadmin.service.impl;
 
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.vueadmin.common.dto.MenuDto;
 import com.vueadmin.entity.Menu;
 import com.vueadmin.entity.User;
@@ -48,6 +49,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return convert(menuTree);
     }
 
+    @Override
+    public List<Menu> tree() {
+        // 获取所有菜单信息
+        List<Menu> menus = this.list(new QueryWrapper<Menu>());
+
+        // 转成树状结构
+        return buildTreeMenu(menus);
+    }
+
 
     private List<Menu> buildTreeMenu(List<Menu> menus) {
 
@@ -68,7 +78,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             }
         }
 
-//        System.out.println(JSONUtil.toJsonStr(finalMenus));
         return finalMenus;
     }
 

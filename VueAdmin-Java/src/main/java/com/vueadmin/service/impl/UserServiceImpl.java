@@ -55,62 +55,61 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String authority="";
 
 
-//        //判断是否缓存了权限信息，缓存过则直接取出，否则获取权限并存入redis
-//        if (redisUtil.hasKey("GrantedAuthority:" + user.getUsername())) {
-////            System.out.println("已缓存");
-//            authority = (String) redisUtil.get("GrantedAuthority:" + user.getUsername());
-//
-//        }else{
-////            System.out.println("未缓存");
-//            //获取角色
-//            List<Role> roles = roleService.list(new QueryWrapper<Role>()
-//                    .inSql("id", "select role_id from role_user where user_id = " + userId));
-//
-//            if (roles.size() > 0) {
-//                String roleCodes = roles.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
-//
-//                authority = roleCodes.concat(",");
-//            }
-//
-//            //获取草单操作权限编码
-//            List<Long> menuIds = userMapper.getNavMenuIds(userId);
-//            if (menuIds.size() > 0) {
-//
-//                List<Menu> menus = menuService.listByIds(menuIds);
-//                String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
-//
-//                authority = authority.concat(menuPerms);
-//            }
-//
-//            //存入redis
-//            redisUtil.set("GrantedAuthority:" + user.getUsername(), authority, 60 * 60);
-//        }
+        //判断是否缓存了权限信息，缓存过则直接取出，否则获取权限并存入redis
+        if (redisUtil.hasKey("GrantedAuthority:" + user.getUsername())) {
+//            System.out.println("已缓存");
+            authority = (String) redisUtil.get("GrantedAuthority:" + user.getUsername());
+
+        }else{
+//            System.out.println("未缓存");
+            //获取角色
+            List<Role> roles = roleService.list(new QueryWrapper<Role>()
+                    .inSql("id", "select role_id from role_user where user_id = " + userId));
+
+            if (roles.size() > 0) {
+                String roleCodes = roles.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
+
+                authority = roleCodes.concat(",");
+            }
+
+            //获取草单操作权限编码
+            List<Long> menuIds = userMapper.getNavMenuIds(userId);
+            if (menuIds.size() > 0) {
+
+                List<Menu> menus = menuService.listByIds(menuIds);
+                String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
+
+                authority = authority.concat(menuPerms);
+            }
+
+            //存入redis
+            redisUtil.set("GrantedAuthority:" + user.getUsername(), authority, 60 * 60);
+        }
 
 
 //        System.out.println("未缓存");
-        //获取角色
-        List<Role> roles = roleService.list(new QueryWrapper<Role>()
-                .inSql("id", "select role_id from role_user where user_id = " + userId));
-
-        if (roles.size() > 0) {
-            String roleCodes = roles.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
-
-            authority = roleCodes.concat(",");
-        }
-
-        //获取草单操作权限编码
-        List<Long> menuIds = userMapper.getNavMenuIds(userId);
-        if (menuIds.size() > 0) {
-
-            List<Menu> menus = menuService.listByIds(menuIds);
-            String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
-
-            authority = authority.concat(menuPerms);
-        }
-
-        //存入redis
-        redisUtil.set("GrantedAuthority:" + user.getUsername(), authority, 60 * 60);
-
+//        //获取角色
+//        List<Role> roles = roleService.list(new QueryWrapper<Role>()
+//                .inSql("id", "select role_id from role_user where user_id = " + userId));
+//
+//        if (roles.size() > 0) {
+//            String roleCodes = roles.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
+//
+//            authority = roleCodes.concat(",");
+//        }
+//
+//        //获取草单操作权限编码
+//        List<Long> menuIds = userMapper.getNavMenuIds(userId);
+//        if (menuIds.size() > 0) {
+//
+//            List<Menu> menus = menuService.listByIds(menuIds);
+//            String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
+//
+//            authority = authority.concat(menuPerms);
+//        }
+//
+//        //存入redis
+//        redisUtil.set("GrantedAuthority:" + user.getUsername(), authority, 60 * 60);
 
 
         return authority;

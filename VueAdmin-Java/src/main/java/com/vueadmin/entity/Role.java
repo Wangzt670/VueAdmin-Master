@@ -1,8 +1,14 @@
 package com.vueadmin.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -21,11 +27,13 @@ public class Role extends BaseEntity {
     /**
      * 角色名称
      */
+    @NotBlank(message = "角色名称不能为空")
     private String name;
 
     /**
      * 角色编码
      */
+    @NotBlank(message = "角色编码不能为空")
     private String code;
 
     /**
@@ -33,5 +41,12 @@ public class Role extends BaseEntity {
      */
     private String remark;
 
+    /**
+     * 状态(0：禁用，1：正常)
+     */
+    @NotNull(message = "状态不能为空")
+    private Integer statu;
 
+    @TableField(exist = false)
+    private List<Long> menuIds = new ArrayList<>();
 }

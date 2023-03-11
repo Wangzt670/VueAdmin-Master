@@ -74,7 +74,7 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('sys:menu:updata')">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('sys:menu:update')">编辑</el-button>
           <el-divider direction="vertical"></el-divider>
 
           <template>

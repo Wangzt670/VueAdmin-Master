@@ -81,7 +81,7 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('parkman:mypark:updata')">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('parkman:mypark:update')">编辑</el-button>
 
           <el-divider direction="vertical"></el-divider>
 

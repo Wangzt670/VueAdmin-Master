@@ -76,7 +76,7 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('ordman:myorder:updata')">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('ordman:myorder:update')">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>

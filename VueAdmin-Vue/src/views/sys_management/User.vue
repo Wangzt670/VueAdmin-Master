@@ -77,7 +77,7 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('sys:user:updata')">编辑</el-button>
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('sys:user:update')">编辑</el-button>
 
           <el-divider direction="vertical"></el-divider>
 
@@ -124,7 +124,7 @@
         <el-form-item label="角色名称" prop="role">
           <el-select v-model="editForm.role" autocomplete="off">
             <template v-for="item in tableDataRole">
-              <el-option :label="item.name" :value="item.id"></el-option>
+              <el-option :label="item.name" :value="item.name"></el-option>
             </template>
           </el-select>
         </el-form-item>

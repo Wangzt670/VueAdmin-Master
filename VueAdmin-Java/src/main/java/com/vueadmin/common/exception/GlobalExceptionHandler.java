@@ -15,12 +15,12 @@ import java.nio.file.AccessDeniedException;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-/*    @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler(value = AccessDeniedException.class)
-    public Result handler(AccessDeniedException e) {
-        log.info("security权限不足：----------------{}", e.getMessage());
-        return Result.fail("权限不足");
-    }
+//    @ResponseStatus(HttpStatus.FORBIDDEN)
+//    @ExceptionHandler(value = AccessDeniedException.class)
+//    public Result handler(AccessDeniedException e) {
+//        log.info("security权限不足：----------------{}", e.getMessage());
+//        return Result.fail("权限不足");
+//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         BindingResult bindingResult = e.getBindingResult();
         ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
         return Result.fail(objectError.getDefaultMessage());
-    }*/
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = IllegalArgumentException.class)

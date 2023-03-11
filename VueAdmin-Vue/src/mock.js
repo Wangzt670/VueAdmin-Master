@@ -329,21 +329,21 @@ Mock.mock('/sys/menu/nav', 'get', () => {
 
     //权限信息
 /*    let authoritys = ['sys:user:list', "sys:user:save", "sys:user:delete"]*/
-    let authoritys = ['sys:menu:list','sys:menu:save','sys:menu:updata',
-        'sys:role:list','sys:role:save','sys:role:updata',
-        'sys:user:list','sys:user:save','sys:user:updata',
+    let authoritys = ['sys:menu:list','sys:menu:save','sys:menu:update',
+        'sys:role:list','sys:role:save','sys:role:update',
+        'sys:user:list','sys:user:save','sys:user:update',
 
-        'village:village:list','village:village:save','village:village:updata',
+        'village:village:list','village:village:save','village:village:update',
         'village:myvillage:list',
 
-        'carman:car:list','carman:car:save','carman:car:updata',
-        'carman:mycar:list','carman:mycar:save','carman:mycar:updata',
+        'carman:car:list','carman:car:save','carman:car:update',
+        'carman:mycar:list','carman:mycar:save','carman:mycar:update',
 
-        'parkman:park:list','parkman:park:save','parkman:park:updata',
-        'parkman:mypark:list','parkman:mypark:save','parkman:mypark:updata',
+        'parkman:park:list','parkman:park:save','parkman:park:update',
+        'parkman:mypark:list','parkman:mypark:save','parkman:mypark:update',
 
-        'ordman:order:list','ordman:order:updata',
-        'ordman:myorder:list','ordman:myorder:updata',
+        'ordman:order:list','ordman:order:update',
+        'ordman:myorder:list','ordman:myorder:update',
 
 
         'sta:staview:list',
