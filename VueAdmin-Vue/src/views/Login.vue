@@ -48,7 +48,7 @@
             <el-form-item label="角色名称" prop="role">
               <el-select v-model="logonForm.role" autocomplete="off">
                 <template v-for="item in tableDataRole">
-                  <el-option :label="item.name" :value="item.id"></el-option>
+                  <el-option :label="item.name" :value="item.name"></el-option>
                 </template>
               </el-select>
             </el-form-item>
@@ -109,7 +109,7 @@ export default {
 
       //注册参数
       dialogVisible:false,
-      logonForm:[],
+      logonForm:{},
       tableDataRole:[],
 
       logonFormRules: {
@@ -181,7 +181,7 @@ export default {
 
     //注册方法
     getRoleList() {
-      this.$axios.get("/login/getrolelist").then(res => {
+      this.$axios.get("/logon/getrolelist").then(res => {
         this.tableDataRole = res.data.data.records
       })
     },
@@ -197,19 +197,17 @@ export default {
     handleClose() {
       this.resetForm('logonForm')
     },
+
     submitlogonForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.logonForm.statu = 1
-          this.$axios.post('/login/logon' , this.logonForm)
+          this.$axios.post('/logon' , this.logonForm)
               .then(res => {
                 this.$message({
                   showClose: true,
                   message: '操作成功！',
                   type: 'success',
-                  /*                onClose:() => {
-                                    this.getUserList()
-                                  }*/
                 });
 
                 this.resetForm(formName)
@@ -221,6 +219,8 @@ export default {
         }
       });
     },
+
+
 
   },
   created() {

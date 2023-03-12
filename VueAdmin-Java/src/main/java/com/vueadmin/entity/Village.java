@@ -4,6 +4,9 @@ package com.vueadmin.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 
@@ -21,6 +24,7 @@ public class Village extends BaseEntity {
     /**
      * 小区名称
      */
+    @NotBlank(message = "小区名称不能为空")
     private String villagename;
 
     /**
@@ -41,6 +45,7 @@ public class Village extends BaseEntity {
     /**
      * 状态(0：禁用，1：正常)
      */
+    @NotNull(message = "状态不能为空")
     private Integer statu;
 
     /**

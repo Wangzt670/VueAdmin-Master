@@ -9,7 +9,8 @@ import Index from '../views/Index.vue'
 import UserCenter from "../views/sys_management/UserCenter.vue";
 
 
-import axios from "axios";
+// import axios from "axios";
+import axios from "../axios";
 import store from "../store";
 
 Vue.use(VueRouter)
@@ -52,7 +53,13 @@ router.beforeEach((to, from, next) => {
     //判断是否获取过路由，设置一个参数
     let hasRoute = store.state.menus.hasRoutes
 
-    if(!hasRoute){
+    let token = localStorage.getItem("token")
+
+    if(to.path == '/login'){
+        next()
+    }else if(!token){
+        next({path:'/login'})
+    }else if(token && !hasRoute){
       //获取导航栏请求
       axios.get("/sys/menu/nav", {
         headers: {
@@ -95,6 +102,8 @@ router.beforeEach((to, from, next) => {
         store.commit("changeRouteStatus", hasRoute)
       })
     }
+
+
   next()
 })
 

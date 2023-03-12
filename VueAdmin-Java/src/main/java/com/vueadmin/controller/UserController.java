@@ -4,6 +4,7 @@ package com.vueadmin.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.vueadmin.common.dto.PassDto;
 import com.vueadmin.common.lang.Const;
 import com.vueadmin.common.lang.Result;
 import com.vueadmin.entity.Role;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,11 +61,11 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/getrolelist")
-    public Result getrolelist(String name) {
+    public Result getrolelist() {
 
         Page<Role> pageData = roleService.page(getPage(),
                 new QueryWrapper<Role>()
-                        .like(StrUtil.isNotBlank(name),"name",name)
+                        .in("statu",1)
         );
 
         return Result.succ(pageData);
@@ -119,4 +121,19 @@ public class UserController extends BaseController {
         return Result.succ("");
     }
 
+    @PostMapping("/updatePass")
+    public Result updatePass(@Validated @RequestBody PassDto passDto, Principal principal) {
+
+        User user = userService.getByUsername(principal.getName());
+
+        boolean matches = passwordEncoder.matches(passDto.getCurrentPass(), user.getPassword());
+        if (!matches) {
+            return Result.fail("旧密码不正确");
+        }
+
+        user.setPassword(passwordEncoder.encode(passDto.getPassword()));
+
+        userService.updateById(user);
+        return Result.succ("");
+    }
 }

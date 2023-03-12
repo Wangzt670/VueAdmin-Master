@@ -149,15 +149,15 @@ export default {
   },
   created() {
     this.getOrderList()
-    this.getUserInfo()
+    // this.getUserInfo()
   },
   methods:{
 
-    getUserInfo() {
-      this.$axios.get("/ordman/myorder/getuserinfo").then(res => {
-        this.userInfo = res.data.data
-      })
-    },
+    // getUserInfo() {
+    //   this.$axios.get("/ordman/myorder/getuserinfo").then(res => {
+    //     this.userInfo = res.data.data
+    //   })
+    // },
 
     //更新以及查询
     getOrderList() {

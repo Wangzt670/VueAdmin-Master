@@ -122,14 +122,16 @@
         <el-form-item label="小区" prop="villagename">
           <el-select v-model="editForm.villagename" autocomplete="off">
             <template v-for="item in tableDataVillage">
-              <el-option :label="item.villagename" :value="item.id"></el-option>
+              <el-option :label="item.villagename" :value="item.villagename"></el-option>
             </template>
           </el-select>
         </el-form-item>
 
         <el-form-item label="用户名" prop="username">
           <el-select v-model="editForm.username" autocomplete="off">
-            <el-option :label="userInfo.username" :value="userInfo.id"></el-option>
+            <template v-for="item in tableDataUser">
+              <el-option :label="item.username" :value="item.username"></el-option>
+            </template>
           </el-select>
         </el-form-item>
 
@@ -176,7 +178,7 @@ export default {
       },
 
       tableData: [],
-      userInfo: {},
+      tableDataUser: [],
       tableDataVillage: [],
 
       //校验规则
@@ -208,14 +210,14 @@ export default {
   },
   created() {
     this.getParkList()
-    this.getUserInfo()
+    this.getUserList()
     this.getVillageList()
   },
   methods:{
 
-    getUserInfo() {
-      this.$axios.get("/parkman/mypark/getuserinfo").then(res => {
-        this.userInfo = res.data.data
+    getUserList() {
+      this.$axios.get("/parkman/mypark/getuserlist").then(res => {
+        this.tableDataUser = res.data.data.records
       })
     },
 

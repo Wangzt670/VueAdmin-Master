@@ -53,6 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] URL_WHITELIST ={
             "/login",
+            "/logon",
+            "/logon/getrolelist",
             "/logout",
             "/captcha",
             "/favicon.ico",

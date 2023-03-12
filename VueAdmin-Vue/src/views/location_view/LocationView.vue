@@ -135,7 +135,7 @@
         <el-form-item label="车辆" prop="carnum">
           <el-select v-model="OrderForm.carnum" autocomplete="off">
             <template v-for="item in tableDataCar">
-              <el-option :label="item.carnum" :value="item.id"></el-option>
+              <el-option :label="item.carnum" :value="item.carnum"></el-option>
             </template>
           </el-select>
         </el-form-item>
@@ -193,7 +193,7 @@ export default {
       tableDataPark: [],
 
       infoVisible:false,
-      currentVillageID:null,
+      currentVillageName:"",
 
       //创建订单
       OrderFormVisible:false,
@@ -233,10 +233,10 @@ export default {
 
 
     infoWindowOpen(item){
-      console.log(item.lng)
-      console.log(item.lat)
-      console.log(item.id)
-      this.currentVillageID = item.id
+      // console.log(item.lng)
+      // console.log(item.lat)
+      // console.log(item.villagename)
+      this.currentVillageName = item.villagename
 
       this.getParkList()
 
@@ -244,11 +244,11 @@ export default {
     },
     infoWindowClose(){
       this.infoVisible = false
-      this.currentVillageID = null
+      this.currentVillageName = ""
     },
     handleClose(){
       this.infoVisible = false
-      this.currentVillageID = null
+      this.currentVillageName = ""
     },
 
 
@@ -269,8 +269,14 @@ export default {
     },*/
 
     getParkList(){
-      console.log(this.currentVillageID)
-      this.$axios.get("/locview/locview/getparklist"+this.currentVillageID).then(res => {
+      // console.log(this.currentVillageName)
+      this.$axios.get("/locview/locview/getparklist",{
+        params:{
+          currentVillageName:this.currentVillageName,
+          current: this.current,
+          size: this.size
+        }
+      }).then(res => {
         this.tableDataPark = res.data.data.records
         this.size = res.data.data.size
         this.current = res.data.data.current
@@ -293,7 +299,7 @@ export default {
 //////////////////////////////创建订单子功能项//////////////
     getUserInfo() {
       this.$axios.get("/locview/locview/getuserinfo").then(res => {
-        this.userInfo = res.data.data
+        this.userInfo = res.data.data.records[0]
       })
     },
 

@@ -110,7 +110,9 @@
 
         <el-form-item label="用户名" prop="username">
           <el-select v-model="editForm.username" autocomplete="off">
-            <el-option :label="userInfo.username" :value="userInfo.id"></el-option>
+            <template v-for="item in tableDataUser">
+              <el-option :label="item.username" :value="item.username"></el-option>
+            </template>
           </el-select>
         </el-form-item>
 
@@ -155,8 +157,8 @@ export default {
       },
 
       tableData: [],
-      userInfo:{
-      },
+      tableDataUser: [],
+
 
       //校验规则
       editFormRules: {
@@ -179,14 +181,14 @@ export default {
     }
   },
   created() {
-    this.getUserInfo()
+    this.getUserList()
     this.getCarList()
 
   },
   methods:{
-    getUserInfo() {
-      this.$axios.get("/carman/mycar/getuserinfo").then(res => {
-        this.userInfo = res.data.data
+    getUserList() {
+      this.$axios.get("/carman/mycar/getuserlist").then(res => {
+        this.tableDataUser = res.data.data.records
       })
     },
 

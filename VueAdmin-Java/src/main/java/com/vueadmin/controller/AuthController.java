@@ -3,13 +3,24 @@ package com.vueadmin.controller;
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.code.kaptcha.Producer;
 import com.vueadmin.common.lang.Const;
 import com.vueadmin.common.lang.Result;
+import com.vueadmin.entity.Role;
+import com.vueadmin.entity.RoleUser;
 import com.vueadmin.entity.User;
 import com.vueadmin.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
@@ -27,6 +38,11 @@ public class AuthController extends BaseController{
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
+
+
     @GetMapping("/captcha")
     public Result captcha() throws IOException {
 
@@ -34,10 +50,6 @@ public class AuthController extends BaseController{
         String key = UUID.randomUUID().toString();
         //生成5位数验证码
         String code = producer.createText();
-
-        //测试
-        key = "aaaaa";
-        code = "11111";
 
         BufferedImage image =producer.createImage(code);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -69,5 +81,36 @@ public class AuthController extends BaseController{
                 .put("username", user.getUsername())
                 .map()
         );
+    }
+
+
+    @GetMapping("/logon/getrolelist")
+    public Result getrolelist(String name) {
+
+        Page<Role> pageData = roleService.page(getPage(),
+                new QueryWrapper<Role>()
+                        .like(StrUtil.isNotBlank(name),"name",name)
+        );
+
+        return Result.succ(pageData);
+    }
+
+    @PostMapping("/logon")
+    @Transactional
+    public Result logon(@Validated @RequestBody User user) {
+
+        // 设置默认密码
+        String password = passwordEncoder.encode(Const.DEFULT_PASSWORD);
+        user.setPassword(password);
+
+        userService.save(user);
+
+        Role userrole = roleService.getOne(new QueryWrapper<Role>().in("name", user.getRole()));
+        RoleUser roleUser = new RoleUser();
+        roleUser.setRoleId(userrole.getId());
+        roleUser.setUserId(user.getId());
+        roleUserService.save(roleUser);
+
+        return Result.succ(user);
     }
 }

@@ -1,6 +1,7 @@
 package com.vueadmin.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.vueadmin.entity.Indent;
 import com.vueadmin.service.*;
 import com.vueadmin.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,21 @@ public class BaseController {
 
     @Autowired
     RoleMenuService roleMenuService;
+
+    @Autowired
+    VillageService villageService;
+
+    @Autowired
+    CarService carService;
+
+    @Autowired
+    ParkService parkService;
+
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    IndentService indentService;
 
     //获取页码
     public Page getPage(){

@@ -4,6 +4,9 @@ package com.vueadmin.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 
@@ -21,16 +24,19 @@ public class Car extends BaseEntity {
     /**
      * 车牌号
      */
+    @NotBlank(message = "车牌号不能为空")
     private String carnum;
 
     /**
      * 外键用户
      */
+    @NotBlank(message = "用户名称不能为空")
     private String username;
 
     /**
      * 状态(0：禁用，1：正常)
      */
+    @NotNull(message = "状态不能为空")
     private Integer statu;
 
     /**

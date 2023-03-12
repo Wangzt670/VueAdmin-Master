@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center;">
-    <h2>你好！用户{{ userInfo.username }} </h2>
+    <h2>你好！{{ userInfo.username }} </h2>
 
     <el-form :model="passForm" status-icon :rules="rules" ref="passForm" label-width="100px">
       <el-form-item label="旧密码" prop="currentPass">

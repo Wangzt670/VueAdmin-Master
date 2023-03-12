@@ -122,7 +122,7 @@
         <el-form-item label="小区" prop="villagename">
           <el-select v-model="editForm.villagename" autocomplete="off">
             <template v-for="item in tableDataVillage">
-              <el-option :label="item.villagename" :value="item.id"></el-option>
+              <el-option :label="item.villagename" :value="item.villagename"></el-option>
             </template>
           </el-select>
         </el-form-item>
@@ -130,7 +130,7 @@
         <el-form-item label="用户名" prop="username">
           <el-select v-model="editForm.username" autocomplete="off">
             <template v-for="item in tableDataUser">
-              <el-option :label="item.username" :value="item.id"></el-option>
+              <el-option :label="item.username" :value="item.username"></el-option>
             </template>
           </el-select>
         </el-form-item>
