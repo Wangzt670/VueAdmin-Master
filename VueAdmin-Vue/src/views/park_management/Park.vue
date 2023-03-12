@@ -139,7 +139,6 @@
           <el-radio-group v-model="editForm.statu">
             <el-radio :label="0">禁用</el-radio>
             <el-radio :label="1">空闲</el-radio>
-            <el-radio :label="2">占用</el-radio>
           </el-radio-group>
         </el-form-item>
 

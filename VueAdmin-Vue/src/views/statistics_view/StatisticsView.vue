@@ -3,7 +3,7 @@
 
     <el-row :gutter="20" type="flex">
 
-      <el-col :span="7">
+      <el-col :span="9">
         <el-container>
           <el-header>
             <strong>APP主体对象数据统计表</strong>
@@ -14,7 +14,7 @@
         </el-container>
       </el-col>
 
-      <el-col :span="7">
+      <el-col :span="9">
         <el-container>
           <el-header>
             <strong>车位空闲/占用统计饼图</strong>

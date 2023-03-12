@@ -34,7 +34,7 @@ public class Car extends BaseEntity {
     private String username;
 
     /**
-     * 状态(0：禁用，1：正常)
+     * 状态(0：禁用；1：空闲；2：占用)
      */
     @NotNull(message = "状态不能为空")
     private Integer statu;

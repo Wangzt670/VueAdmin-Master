@@ -54,8 +54,9 @@
           prop="statu"
           label="状态">
         <template slot-scope="scope">
-          <el-tag size="small" v-if="scope.row.statu === 1" type="success">正常</el-tag>
+          <el-tag size="small" v-if="scope.row.statu === 1" type="success">空闲</el-tag>
           <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
+          <el-tag size="small" v-else-if="scope.row.statu === 2" type="info">占用</el-tag>
         </template>
       </el-table-column>
 
@@ -118,7 +119,7 @@
 
         <el-form-item label="状态"  prop="statu">
           <el-radio-group v-model="editForm.statu">
-            <el-radio :label="1">正常</el-radio>
+            <el-radio :label="1">空闲</el-radio>
             <el-radio :label="0">禁用</el-radio>
           </el-radio-group>
         </el-form-item>

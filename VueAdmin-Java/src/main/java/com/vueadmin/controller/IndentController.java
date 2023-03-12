@@ -65,7 +65,7 @@ public class IndentController extends BaseController {
         if(indent.getStatu()==0){
             car.setStatu(1);
         }else if(indent.getStatu()==1){
-            car.setStatu(0);
+            car.setStatu(2);
         }
 
         carService.updateById(car);
@@ -124,7 +124,7 @@ public class IndentController extends BaseController {
         if(indent.getStatu()==0){
             car.setStatu(1);
         }else if(indent.getStatu()==1){
-            car.setStatu(0);
+            car.setStatu(2);
         }
 
         carService.updateById(car);

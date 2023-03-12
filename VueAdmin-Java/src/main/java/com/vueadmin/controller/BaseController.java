@@ -41,9 +41,6 @@ public class BaseController {
     ParkService parkService;
 
     @Autowired
-    OrderService orderService;
-
-    @Autowired
     IndentService indentService;
 
     //获取页码

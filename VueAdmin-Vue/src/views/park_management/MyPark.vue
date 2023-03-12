@@ -16,11 +16,11 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('parkman:park:save')">新增</el-button>
+        <el-button type="primary" @click="dialogVisible = true"v-if="hasAuth('parkman:mypark:save')">新增</el-button>
       </el-form-item>
       <el-form-item>
         <el-popconfirm title="确定批量删除吗？" @confirm="delHandle(null)">
-          <el-button type="danger" slot="reference" :disabled="delBtlStatu"v-if="hasAuth('parkman:park:delete')">批量删除</el-button>
+          <el-button type="danger" slot="reference" :disabled="delBtlStatu"v-if="hasAuth('parkman:mypark:delete')">批量删除</el-button>
         </el-popconfirm>
       </el-form-item>
     </el-form>
@@ -139,7 +139,6 @@
           <el-radio-group v-model="editForm.statu">
             <el-radio :label="0">禁用</el-radio>
             <el-radio :label="1">空闲</el-radio>
-            <el-radio :label="2">占用</el-radio>
           </el-radio-group>
         </el-form-item>
 

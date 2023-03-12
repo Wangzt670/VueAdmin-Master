@@ -83,7 +83,7 @@ public class LoctionViewController extends BaseController{
 
         Car car = carService.getOne(new QueryWrapper<Car>().eq("carnum",indent.getCarnum()));
 
-        car.setStatu(0);
+        car.setStatu(2);
 
         carService.updateById(car);
 
