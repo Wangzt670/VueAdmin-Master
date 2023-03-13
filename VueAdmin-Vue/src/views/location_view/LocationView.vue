@@ -30,7 +30,7 @@
       <template v-for="item in tableDataVillage">
         <bm-marker :position="{lng: item.lng, lat: item.lat}" @click="infoWindowOpen(item)"></bm-marker>
           <el-dialog
-              title= "小区车位详情"
+              :title= "dialogTitle"
               :visible.sync="infoVisible"
               width="1000px"
               :before-close="handleClose"
@@ -194,6 +194,8 @@ export default {
 
       infoVisible:false,
       currentVillageName:"",
+      // dialogTitle:this.currentVillageName+"小区车位详情",
+      dialogTitle:"",
 
       //创建订单
       OrderFormVisible:false,
@@ -237,7 +239,7 @@ export default {
       // console.log(item.lat)
       // console.log(item.villagename)
       this.currentVillageName = item.villagename
-
+      this.dialogTitle = this.currentVillageName+" 小区车位详情"
       this.getParkList()
 
       this.infoVisible = true
