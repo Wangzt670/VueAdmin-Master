@@ -26,8 +26,8 @@ export default {
     return{
       BMap: null,
       map: null,
-      mapZoom: 6,
-      mapCenter: { lng: 108.9258, lat: 34.5459 },
+      mapZoom: 5,
+      mapCenter: { lng: 105, lat: 20 },
 
       tableDataVillage: [],
 
