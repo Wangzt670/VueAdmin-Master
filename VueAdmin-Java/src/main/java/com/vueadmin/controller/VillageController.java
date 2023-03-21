@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.vueadmin.common.lang.Result;
+import com.vueadmin.entity.Park;
 import com.vueadmin.entity.User;
 import com.vueadmin.entity.Village;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -122,6 +123,27 @@ public class VillageController extends BaseController {
         return Result.succ("");
     }
 
+    @GetMapping("/village/getparklist")
+    public Result getparklist(String currentVillageName) {
+
+        Page<Park> pageData = parkService.page(getPage(),
+                new QueryWrapper<Park>()
+                        .in("villagename",currentVillageName)
+        );
+
+        return Result.succ(pageData);
+    }
+
+    @GetMapping("/myvillage/getparklist")
+    public Result getmyparklist(String currentVillageName) {
+
+        Page<Park> pageData = parkService.page(getPage(),
+                new QueryWrapper<Park>()
+                        .in("villagename",currentVillageName)
+        );
+
+        return Result.succ(pageData);
+    }
 
 
 

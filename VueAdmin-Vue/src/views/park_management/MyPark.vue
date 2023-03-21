@@ -66,13 +66,21 @@
       </el-table-column>
 
       <el-table-column
+          prop="avastart,avaend"
+          label="可用时间段"
+          width="150">
+        <template slot-scope="scope">{{scope.row.avastart}} - {{scope.row.avaend}}</template>
+      </el-table-column>
+
+      <el-table-column
           prop="price"
           label="价格/小时">
       </el-table-column>
 
       <el-table-column
           prop="remark"
-          label="描述">
+          label="描述"
+          width="150">
       </el-table-column>
 
       <el-table-column
@@ -142,6 +150,17 @@
           </el-radio-group>
         </el-form-item>
 
+        <el-form-item label="可用时间段" prop="avatime">
+          <el-time-picker
+              is-range
+              v-model="avatime"
+              range-separator="至"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+              placeholder="选择时间范围">
+          </el-time-picker>
+        </el-form-item>
+
         <el-form-item label="价格/小时"  prop="price">
           <el-input v-model.number="editForm.price" autocomplete="off"></el-input>
         </el-form-item>
@@ -179,6 +198,9 @@ export default {
       tableData: [],
       tableDataUser: [],
       tableDataVillage: [],
+
+      avatime:[new Date(2023, 5, 20, 8, 30),
+        new Date(2023, 5, 20, 17, 30)],
 
       //校验规则
       editFormRules: {
@@ -246,6 +268,8 @@ export default {
       this.$refs[formName].resetFields();
       this.dialogVisible = false
       this.editForm = {}
+      this.avatime=[new Date(2023, 5, 20, 8, 30),
+        new Date(2023, 5, 20, 17, 30)]
     },
 
     handleClose() {
@@ -255,6 +279,19 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+
+          let start = this.avatime[0]
+          let hh = start.getHours();
+          let mf = start.getMinutes()<10 ? '0'+start.getMinutes() : start.getMinutes();
+          let ss = start.getSeconds()<10 ? '0'+start.getSeconds() : start.getSeconds();
+          this.editForm.avastart = hh+':'+mf+':'+ss;
+
+          let end = this.avatime[1]
+          hh = end.getHours();
+          mf = end.getMinutes()<10 ? '0'+end.getMinutes() : end.getMinutes();
+          ss = end.getSeconds()<10 ? '0'+end.getSeconds() : end.getSeconds();
+          this.editForm.avaend = hh+':'+mf+':'+ss;
+
           this.$axios.post('/parkman/mypark/' + (this.editForm.id?'update' : 'save'), this.editForm)
               .then(res => {
 
@@ -279,6 +316,12 @@ export default {
     editHandle(id) {
       this.$axios.get('/parkman/mypark/info/' + id).then(res => {
         this.editForm = res.data.data
+
+        let fullavastart = "2023-03-21 " + this.editForm.avastart
+        let fullavaend = "2023-03-21 " + this.editForm.avaend
+
+        this.avatime = [new Date(fullavastart),new Date(fullavaend)]
+
 
         this.dialogVisible = true
       })

@@ -56,5 +56,15 @@ public class Park extends BaseEntity {
      */
     private String remark;
 
+    /**
+     * 可用时间段开始时间
+     */
+    private String avastart;
+
+    /**
+     * 可用时间段结束时间
+     */
+    private String avaend;
+
 
 }

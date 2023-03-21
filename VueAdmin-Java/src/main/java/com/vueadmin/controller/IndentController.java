@@ -38,11 +38,11 @@ public class IndentController extends BaseController {
 
     @GetMapping("/order/list")
     @PreAuthorize("hasAuthority('ordman:order:list')")
-    public Result list(String ordernum) {
+    public Result list(String orderstart) {
 
         Page<Indent> pageData = indentService.page(getPage(),
                 new QueryWrapper<Indent>()
-                        .like(StrUtil.isNotBlank(ordernum),"ordernum",ordernum)
+                        .like(StrUtil.isNotBlank(orderstart),"orderstart",orderstart)
         );
 
         return Result.succ(pageData);
@@ -72,6 +72,11 @@ public class IndentController extends BaseController {
 
         parkService.updateById(park);
 
+        if(indent.getStatu()==0)
+        {
+            indent.setCost(indent.getCost() * park.getPrice());
+        }
+
         indentService.updateById(indent);
 
         return Result.succ(indent);
@@ -91,10 +96,10 @@ public class IndentController extends BaseController {
 
     @GetMapping("/myorder/list")
     @PreAuthorize("hasAuthority('ordman:myorder:list')")
-    public Result mylist(String ordernum, Principal principal) {
+    public Result mylist(String orderstart, Principal principal) {
 
         QueryWrapper<Indent> queryWrapper = new QueryWrapper<Indent>()
-                .like(StrUtil.isNotBlank(ordernum),"ordernum",ordernum);
+                .like(StrUtil.isNotBlank(orderstart),"orderstart",orderstart);
 
         queryWrapper.and(qr ->
                 qr.in("lease",principal.getName())
@@ -130,6 +135,11 @@ public class IndentController extends BaseController {
         carService.updateById(car);
 
         parkService.updateById(park);
+
+        if(indent.getStatu()==0)
+        {
+            indent.setCost(indent.getCost() * park.getPrice());
+        }
 
         indentService.updateById(indent);
 

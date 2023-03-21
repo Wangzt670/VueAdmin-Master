@@ -11,7 +11,7 @@
  Target Server Version : 50738
  File Encoding         : 65001
 
- Date: 13/03/2023 14:13:21
+ Date: 21/03/2023 23:55:43
 */
 
 SET NAMES utf8mb4;
@@ -41,8 +41,8 @@ INSERT INTO `car` VALUES (2, '渝A8YE39', '王正霆', 1, '白色奔驰');
 INSERT INTO `car` VALUES (10, '用户1车牌1', '用户1', 1, '用户1车牌1描述1');
 INSERT INTO `car` VALUES (11, '用户1车牌2', '用户1', 1, '用户1车牌2描述2');
 INSERT INTO `car` VALUES (12, '用户1车牌3', '用户1', 1, '用户1车牌3描述3');
-INSERT INTO `car` VALUES (13, '用户3车牌1', '用户3', 2, '用户3车牌1描述1');
-INSERT INTO `car` VALUES (14, '用户3车牌2', '用户3', 2, '用户3车牌2描述2');
+INSERT INTO `car` VALUES (13, '用户3车牌1', '用户3', 1, '用户3车牌1描述1');
+INSERT INTO `car` VALUES (14, '用户3车牌2', '用户3', 1, '用户3车牌2描述2');
 INSERT INTO `car` VALUES (15, '用户3车牌3', '用户3', 0, '用户3车牌3描述3');
 
 -- ----------------------------
@@ -50,16 +50,18 @@ INSERT INTO `car` VALUES (15, '用户3车牌3', '用户3', 0, '用户3车牌3描
 -- ----------------------------
 DROP TABLE IF EXISTS `indent`;
 CREATE TABLE `indent`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `ordernum` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单编号',
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `orderstart` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单开始时间',
+  `orderend` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '订单结束时间',
   `carnum` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键车牌号',
   `villagename` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键小区名称',
   `parknum` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键车位编号',
   `lease` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键出租人',
   `rent` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键租借人',
   `statu` int(5) NOT NULL COMMENT '状态(0：已结束；1：进行中)',
+  `cost` int(5) NULL DEFAULT NULL COMMENT '订单价格',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `ordernum`(`ordernum`) USING BTREE,
+  INDEX `ordernum`(`orderstart`) USING BTREE,
   INDEX `order_carnum`(`carnum`) USING BTREE,
   INDEX `order_villagename`(`villagename`) USING BTREE,
   INDEX `order_parknum`(`parknum`) USING BTREE,
@@ -70,14 +72,19 @@ CREATE TABLE `indent`  (
   CONSTRAINT `order_parknum` FOREIGN KEY (`parknum`) REFERENCES `park` (`parknum`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_rent` FOREIGN KEY (`rent`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_villagename` FOREIGN KEY (`villagename`) REFERENCES `village` (`villagename`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of indent
 -- ----------------------------
-INSERT INTO `indent` VALUES (53, '2023/3/13 11:44:57', '用户3车牌1', '锦上华庭', '用户1车位1', '用户1', '用户3', 1);
-INSERT INTO `indent` VALUES (54, '2023/3/13 11:46:31', '用户3车牌2', '阳光今典', '用户2车位3', '用户2', '用户3', 1);
-INSERT INTO `indent` VALUES (55, '2023/3/13 11:48:15', '用户1车牌1', '锦上华庭', '用户2车位1', '用户2', '用户1', 0);
+INSERT INTO `indent` VALUES (53, '2023-3-21 9:44:57', '2023-3-21 23:09:51', '用户3车牌1', '锦上华庭', '用户1车位1', '用户1', '用户3', 0, 70);
+INSERT INTO `indent` VALUES (54, '2023-3-21 10:46:31', '2023-3-21 23:09:53', '用户3车牌2', '阳光今典', '用户2车位3', '用户2', '用户3', 0, 65);
+INSERT INTO `indent` VALUES (55, '2023-3-21 11:48:15', '2023-3-21 23:09:57', '用户1车牌1', '锦上华庭', '用户2车位1', '用户2', '用户1', 0, 60);
+INSERT INTO `indent` VALUES (56, '2023-3-21 15:29:08', '2023-3-21 23:10:01', '用户3车牌1', '锦上华庭', '用户1车位1', '用户1', '用户3', 0, 40);
+INSERT INTO `indent` VALUES (57, '2023-3-21 18:30:18', '2023-3-21 23:10:08', '用户3车牌2', '阳光今典', '用户2车位3', '用户2', '用户3', 0, 25);
+INSERT INTO `indent` VALUES (60, '2023-3-21 23:40:49', '2023-3-21 23:41:07', '用户1车牌1', '锦上华庭', '用户2车位1', '用户2', '用户1', 0, 5);
+INSERT INTO `indent` VALUES (61, '2023-3-21 23:41:21', '2023-3-21 23:42:06', '用户1车牌2', '锦上华庭', '用户2车位1', '用户2', '用户1', 0, 5);
+INSERT INTO `indent` VALUES (62, '2023-3-21 23:42:59', '2023-3-21 23:44:07', '用户1车牌1', '锦上华庭', '用户2车位1', '用户2', '用户1', 0, 5);
 
 -- ----------------------------
 -- Table structure for menu
@@ -160,6 +167,8 @@ CREATE TABLE `park`  (
   `villagename` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键小区名称',
   `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外键用户名称',
   `statu` int(5) NOT NULL COMMENT '状态(0：禁用；1：空闲；2：占用)',
+  `avastart` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '可用时段起始时间',
+  `avaend` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '可用时段结束时间',
   `price` int(5) NOT NULL COMMENT '价格',
   `remark` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE,
@@ -168,19 +177,20 @@ CREATE TABLE `park`  (
   INDEX `park_username`(`username`) USING BTREE,
   CONSTRAINT `park_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `park_villagename` FOREIGN KEY (`villagename`) REFERENCES `village` (`villagename`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of park
 -- ----------------------------
-INSERT INTO `park` VALUES (1, 'A区1号', '锦上华庭', '王正霆', 1, 5, '地下车位');
-INSERT INTO `park` VALUES (2, 'A区2号', '锦上华庭', '王正霆', 1, 5, NULL);
-INSERT INTO `park` VALUES (7, '用户1车位1', '锦上华庭', '用户1', 2, 5, '用户1车位1描述1');
-INSERT INTO `park` VALUES (8, '用户1车位2', '锦上华庭', '用户1', 1, 5, '用户1车位2描述2');
-INSERT INTO `park` VALUES (9, '用户1车位3', '阳光今典', '用户1', 1, 5, '用户1车位3描述3');
-INSERT INTO `park` VALUES (10, '用户2车位1', '锦上华庭', '用户2', 1, 5, '用户2车位1描述1');
-INSERT INTO `park` VALUES (11, '用户2车位2', '锦上华庭', '用户2', 0, 5, '用户2车位2描述2');
-INSERT INTO `park` VALUES (12, '用户2车位3', '阳光今典', '用户2', 2, 5, '用户2车位3描述3');
+INSERT INTO `park` VALUES (1, 'A区1号', '锦上华庭', '王正霆', 1, '9:30:00', '17:30:00', 5, '地下车位');
+INSERT INTO `park` VALUES (2, 'A区2号', '锦上华庭', '王正霆', 1, '8:30:00', '17:30:00', 5, NULL);
+INSERT INTO `park` VALUES (7, '用户1车位1', '锦上华庭', '用户1', 1, '8:30:00', '17:30:00', 5, '用户1车位1描述1');
+INSERT INTO `park` VALUES (8, '用户1车位2', '锦上华庭', '用户1', 1, '8:30:00', '17:30:00', 5, '用户1车位2描述2');
+INSERT INTO `park` VALUES (9, '用户1车位3', '阳光今典', '用户1', 1, '8:30:00', '17:30:00', 5, '用户1车位3描述3');
+INSERT INTO `park` VALUES (10, '用户2车位1', '锦上华庭', '用户2', 1, '8:30:00', '17:30:00', 5, '用户2车位1描述1');
+INSERT INTO `park` VALUES (11, '用户2车位2', '锦上华庭', '用户2', 0, '8:30:00', '17:30:00', 5, '用户2车位2描述2');
+INSERT INTO `park` VALUES (12, '用户2车位3', '阳光今典', '用户2', 1, '8:30:00', '17:30:00', 5, '用户2车位3描述3');
+INSERT INTO `park` VALUES (15, 'A区3号', '锦上华庭', '王正霆', 1, '9:30:00', '17:30:00', 5, NULL);
 
 -- ----------------------------
 -- Table structure for role

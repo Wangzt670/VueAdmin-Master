@@ -63,7 +63,8 @@
 
               <el-table-column
                   prop="statu"
-                  label="状态">
+                  label="状态"
+                  width="70">
                 <template slot-scope="scope">
                   <el-tag size="small" v-if="scope.row.statu === 1" type="success">空闲</el-tag>
                   <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">占用</el-tag>
@@ -71,8 +72,16 @@
               </el-table-column>
 
               <el-table-column
+                  prop="avastart,avaend"
+                  label="可用时间段"
+                  width="150">
+                <template slot-scope="scope">{{scope.row.avastart}} - {{scope.row.avaend}}</template>
+              </el-table-column>
+
+              <el-table-column
                   prop="price"
-                  label="价格/小时">
+                  label="价格/小时"
+                  width="100">
               </el-table-column>
 
               <el-table-column
@@ -129,7 +138,7 @@
       <el-form :model="OrderForm" :rules="OrderFormRules" ref="OrderForm" label-width="100px">
 
         <el-form-item label="订单编号"  prop="ordernum">
-          <el-input v-model="OrderForm.ordernum" autocomplete="off"></el-input>
+          <el-input v-model="OrderForm.orderstart" autocomplete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="车辆" prop="carnum">
@@ -324,7 +333,7 @@ export default {
       let hh = new Date().getHours();
       let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
       let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
-      _this.gettime = yy+'/'+mm+'/'+dd+' '+hh+':'+mf+':'+ss;
+      _this.gettime = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
       return _this.gettime
     },
 
@@ -333,7 +342,7 @@ export default {
 
       this.$axios.get('/locview/locview/parkinfo/' + id).then(res => {
 
-        this.OrderForm.ordernum = this.getCurrentTime()
+        this.OrderForm.orderstart = this.getCurrentTime()
         this.OrderForm.parknum = res.data.data.parknum
         this.OrderForm.villagename = res.data.data.villagename
         this.OrderForm.lease = res.data.data.username

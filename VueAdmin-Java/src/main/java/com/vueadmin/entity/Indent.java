@@ -21,10 +21,15 @@ public class Indent extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 订单编号
+     * 订单开始时间
      */
-    @NotBlank(message = "订单编号不能为空")
-    private String ordernum;
+    @NotBlank(message = "订单开始时间不能为空")
+    private String orderstart;
+
+    /**
+     * 订单结束时间
+     */
+    private String orderend;
 
     /**
      * 外键车牌号
@@ -62,5 +67,9 @@ public class Indent extends BaseEntity {
     @NotNull(message = "状态不能为空")
     private Integer statu;
 
+    /**
+     * 订单价格
+     */
+    private Integer cost;
 
 }

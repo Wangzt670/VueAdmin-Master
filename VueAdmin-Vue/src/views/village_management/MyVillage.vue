@@ -80,9 +80,12 @@
           label="操作">
 
         <template slot-scope="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('vilman:myvillage:update')">编辑</el-button>
 
-<!--          <el-divider direction="vertical"></el-divider>-->
+          <el-button type="text" @click="infoWindowOpen(scope.row.villagename)">车位详情</el-button>
+
+          <el-divider direction="vertical"></el-divider>
+
+          <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('vilman:myvillage:update')">编辑</el-button>
 
           <template>
             <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row.id)">
@@ -176,6 +179,87 @@
 
     </el-dialog>
 
+    <!--车位详情对话框-->
+    <el-dialog
+        :title= "dialogTitle"
+        :visible.sync="infoVisible"
+        width="1000px"
+        :before-close="handleInfoClose"
+    >
+
+      <el-main>
+        <!--表单主体-->
+        <el-table
+            ref="multipleTable"
+            :data="tableDataPark"
+            tooltip-effect="dark"
+            style="width: 100%"
+            border
+            stripe
+        >
+
+          <el-table-column
+              prop="parknum"
+              label="车位编号">
+          </el-table-column>
+
+          <el-table-column
+              prop="villagename"
+              label="小区">
+          </el-table-column>
+
+          <el-table-column
+              prop="username"
+              label="用户名">
+          </el-table-column>
+
+          <el-table-column
+              prop="statu"
+              label="状态">
+            <template slot-scope="scope">
+              <el-tag size="small" v-if="scope.row.statu === 1" type="success">空闲</el-tag>
+              <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
+              <el-tag size="small" v-else-if="scope.row.statu === 2" type="info">占用</el-tag>
+            </template>
+          </el-table-column>
+
+          <el-table-column
+              prop="avastart,avaend"
+              label="可用时间段"
+              width="150">
+            <template slot-scope="scope">{{scope.row.avastart}} - {{scope.row.avaend}}</template>
+          </el-table-column>
+
+          <el-table-column
+              prop="price"
+              label="价格/小时">
+          </el-table-column>
+
+          <el-table-column
+              prop="remark"
+              label="描述"
+              width="150">
+          </el-table-column>
+        </el-table>
+
+        <!--分页组件-->
+        <el-pagination
+            @size-change="handleSizeChangePark"
+            @current-change="handleCurrentChangePark"
+            layout="total, sizes, prev, pager, next, jumper"
+            :page-sizes="[10, 20, 50, 100]"
+            :current-page="parkcurrent"
+            :page-size="parksize"
+            :total="parktotal"
+        >
+        </el-pagination>
+      </el-main>
+
+      <div slot="footer" class="dialog-footer" height="100px">
+        <el-button @click="infoWindowClose">关 闭</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -198,6 +282,15 @@ export default {
 
       tableData: [],
       tableDataUser: [],
+
+      parktotal: 0,
+      parksize: 10,
+      parkcurrent: 1,
+
+      tableDataPark: [],
+      infoVisible:false,
+      currentVillageName:"",
+      dialogTitle:"",
 
       //校验规则
       editFormRules: {
@@ -358,7 +451,49 @@ export default {
       this.lat = e.point.lat
       this.editForm.lng = e.point.lng
       this.editForm.lat = e.point.lat
-    }
+    },
+
+    infoWindowOpen(villagename){
+
+      this.currentVillageName = villagename
+      this.dialogTitle = this.currentVillageName+" 小区车位详情"
+      this.getParkList()
+
+      this.infoVisible = true
+    },
+    getParkList(){
+      this.$axios.get("/vilman/myvillage/getparklist",{
+        params:{
+          currentVillageName:this.currentVillageName,
+          current: this.parkcurrent,
+          size: this.parksize
+        }
+      }).then(res => {
+        this.tableDataPark = res.data.data.records
+        this.parksize = res.data.data.size
+        this.parkcurrent = res.data.data.current
+        this.parktotal = res.data.data.total
+      })
+    },
+    infoWindowClose(){
+      this.infoVisible = false
+      this.currentVillageName = ""
+    },
+    handleInfoClose(){
+      this.infoVisible = false
+      this.currentVillageName = ""
+    },
+    //Park分页方法设置
+    handleSizeChangePark(val) {
+      console.log(`每页 ${val} 条`);
+      this.parksize = val
+      this.getParkList()
+    },
+    handleCurrentChangePark(val) {
+      console.log(`当前页: ${val}`);
+      this.parkcurrent = val
+      this.getParkList()
+    },
   }
 }
 </script>

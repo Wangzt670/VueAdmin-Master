@@ -4,8 +4,8 @@
     <el-form :inline="true">
       <el-form-item>
         <el-input
-            v-model="searchForm.ordernum"
-            placeholder="订单编号"
+            v-model="searchForm.orderstart"
+            placeholder="开始时间"
             clearable
         >
         </el-input>
@@ -32,8 +32,22 @@
       </el-table-column>
 
       <el-table-column
-          prop="ordernum"
-          label="订单编号">
+          prop="id"
+          label="订单编号"
+          width="80px"
+          :formatter="formatterId">
+      </el-table-column>
+
+      <el-table-column
+          prop="orderstart"
+          label="订单开始时间"
+          width="160px">
+      </el-table-column>
+
+      <el-table-column
+          prop="orderend"
+          label="订单结束时间"
+          width="160px">
       </el-table-column>
 
       <el-table-column
@@ -71,8 +85,13 @@
       </el-table-column>
 
       <el-table-column
+          prop="cost"
+          label="总价">
+      </el-table-column>
+
+      <el-table-column
           prop="icon"
-          width="260px"
+          width="80px"
           label="操作">
 
         <template slot-scope="scope">
@@ -163,7 +182,7 @@ export default {
     getOrderList() {
       this.$axios.get("/ordman/myorder/list", {
         params: {
-          ordernum: this.searchForm.ordernum,
+          orderstart: this.searchForm.orderstart,
           current: this.current,
           size: this.size
         }
@@ -188,6 +207,16 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+
+          if(this.editForm.statu == 0){
+            this.editForm.orderend = this.getCurrentTime()
+
+            let hour = this.getHour(this.editForm.orderstart,this.editForm.orderend)
+            console.log(hour)
+
+            this.editForm.cost = hour
+          }
+
           this.$axios.post('/ordman/myorder/' + (this.editForm.id?'update' : 'save'), this.editForm)
               .then(res => {
                 this.$message({
@@ -211,7 +240,15 @@ export default {
     editHandle(id) {
       this.$axios.get('/ordman/myorder/info/' + id).then(res => {
         this.editForm = res.data.data
-        this.dialogVisible = true
+        if(this.editForm.statu != 1){
+          this.$message({
+            showClose: true,
+            message: '订单已结束！',
+            type: 'warning',
+          });
+        }else{
+          this.dialogVisible = true
+        }
       })
     },
 
@@ -232,6 +269,33 @@ export default {
       console.log(`当前页: ${val}`);
       this.current = val
       this.getOrderList()
+    },
+
+    formatterId(rows, column){
+      let str = ''+rows.id
+      let idformat = str.padStart(7,"0")
+      return idformat
+    },
+
+    getCurrentTime() {
+      //获取当前时间并打印
+      var _this = this;
+      let yy = new Date().getFullYear();
+      let mm = new Date().getMonth()+1;
+      let dd = new Date().getDate();
+      let hh = new Date().getHours();
+      let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+      let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+      _this.gettime = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
+      return _this.gettime
+    },
+    getHour(s1, s2) {
+      var reDate = /\d{4}-\d{1,2}-\d{1,2}/;
+      s1 = new Date((reDate.test(s1) ? s1 : '2023-1-1 ' + s1).replace(/-/g, '/'));
+      s2 = new Date((reDate.test(s2) ? s2 : '2023-1-1 ' + s2).replace(/-/g, '/'));
+      var ms = s2.getTime() - s1.getTime();
+      if (ms < 0) return 0;
+      return Math.ceil(ms / 1000 / 60 / 60); //小时
     },
   }
 }
