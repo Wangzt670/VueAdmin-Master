@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler)
 
-                //退出配置
+        //退出配置
                 .and()
                 .logout()
                 .logoutSuccessHandler(jwtLogoutSuccessHandler)
