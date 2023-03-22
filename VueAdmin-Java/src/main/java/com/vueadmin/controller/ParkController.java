@@ -66,6 +66,7 @@ public class ParkController extends BaseController {
 
         Page<Village> pageData = villageService.page(getPage(),
                 new QueryWrapper<Village>()
+                        .in("statu",1)
         );
 
         return Result.succ(pageData);

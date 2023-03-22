@@ -11,7 +11,7 @@
  Target Server Version : 50738
  File Encoding         : 65001
 
- Date: 21/03/2023 23:55:43
+ Date: 22/03/2023 11:27:19
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `car`  (
   UNIQUE INDEX `carnum`(`carnum`) USING BTREE,
   INDEX `car_username`(`username`) USING BTREE,
   CONSTRAINT `car_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of car
@@ -44,6 +44,12 @@ INSERT INTO `car` VALUES (12, '用户1车牌3', '用户1', 1, '用户1车牌3描
 INSERT INTO `car` VALUES (13, '用户3车牌1', '用户3', 1, '用户3车牌1描述1');
 INSERT INTO `car` VALUES (14, '用户3车牌2', '用户3', 1, '用户3车牌2描述2');
 INSERT INTO `car` VALUES (15, '用户3车牌3', '用户3', 0, '用户3车牌3描述3');
+INSERT INTO `car` VALUES (16, '用户8车牌1', '用户8', 2, NULL);
+INSERT INTO `car` VALUES (17, '用户8车牌2', '用户8', 2, NULL);
+INSERT INTO `car` VALUES (18, '用户8车牌3', '用户8', 1, NULL);
+INSERT INTO `car` VALUES (19, '用户9车牌1', '用户9', 1, NULL);
+INSERT INTO `car` VALUES (20, '用户9车牌2', '用户9', 1, NULL);
+INSERT INTO `car` VALUES (21, '用户9车牌3', '用户9', 1, NULL);
 
 -- ----------------------------
 -- Table structure for indent
@@ -72,7 +78,7 @@ CREATE TABLE `indent`  (
   CONSTRAINT `order_parknum` FOREIGN KEY (`parknum`) REFERENCES `park` (`parknum`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_rent` FOREIGN KEY (`rent`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_villagename` FOREIGN KEY (`villagename`) REFERENCES `village` (`villagename`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of indent
@@ -85,6 +91,9 @@ INSERT INTO `indent` VALUES (57, '2023-3-21 18:30:18', '2023-3-21 23:10:08', '�
 INSERT INTO `indent` VALUES (60, '2023-3-21 23:40:49', '2023-3-21 23:41:07', '用户1车牌1', '锦上华庭', '用户2车位1', '用户2', '用户1', 0, 5);
 INSERT INTO `indent` VALUES (61, '2023-3-21 23:41:21', '2023-3-21 23:42:06', '用户1车牌2', '锦上华庭', '用户2车位1', '用户2', '用户1', 0, 5);
 INSERT INTO `indent` VALUES (62, '2023-3-21 23:42:59', '2023-3-21 23:44:07', '用户1车牌1', '锦上华庭', '用户2车位1', '用户2', '用户1', 0, 5);
+INSERT INTO `indent` VALUES (63, '2023-3-22 11:20:09', '2023-3-22 11:22:27', '用户8车牌1', '锦上华庭', '用户5车位1', '用户5', '用户8', 0, 6);
+INSERT INTO `indent` VALUES (64, '2023-3-22 11:21:03', NULL, '用户8车牌2', '阳光今典', '用户5车位4', '用户5', '用户8', 1, NULL);
+INSERT INTO `indent` VALUES (65, '2023-3-22 11:24:20', NULL, '用户8车牌1', '阳光今典', '用户2车位3', '用户2', '用户8', 1, NULL);
 
 -- ----------------------------
 -- Table structure for menu
@@ -177,7 +186,7 @@ CREATE TABLE `park`  (
   INDEX `park_username`(`username`) USING BTREE,
   CONSTRAINT `park_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `park_villagename` FOREIGN KEY (`villagename`) REFERENCES `village` (`villagename`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of park
@@ -189,8 +198,15 @@ INSERT INTO `park` VALUES (8, '用户1车位2', '锦上华庭', '用户1', 1, '8
 INSERT INTO `park` VALUES (9, '用户1车位3', '阳光今典', '用户1', 1, '8:30:00', '17:30:00', 5, '用户1车位3描述3');
 INSERT INTO `park` VALUES (10, '用户2车位1', '锦上华庭', '用户2', 1, '8:30:00', '17:30:00', 5, '用户2车位1描述1');
 INSERT INTO `park` VALUES (11, '用户2车位2', '锦上华庭', '用户2', 0, '8:30:00', '17:30:00', 5, '用户2车位2描述2');
-INSERT INTO `park` VALUES (12, '用户2车位3', '阳光今典', '用户2', 1, '8:30:00', '17:30:00', 5, '用户2车位3描述3');
-INSERT INTO `park` VALUES (15, 'A区3号', '锦上华庭', '王正霆', 1, '9:30:00', '17:30:00', 5, NULL);
+INSERT INTO `park` VALUES (12, '用户2车位3', '阳光今典', '用户2', 2, '8:30:00', '17:30:00', 5, '用户2车位3描述3');
+INSERT INTO `park` VALUES (20, '用户5车位1', '锦上华庭', '用户5', 1, '8:30:00', '17:30:00', 6, NULL);
+INSERT INTO `park` VALUES (21, '用户5车位2', '锦上华庭', '用户5', 1, '8:30:00', '17:30:00', 6, NULL);
+INSERT INTO `park` VALUES (22, '用户5车位3', '锦上华庭', '用户5', 1, '8:30:00', '17:30:00', 6, NULL);
+INSERT INTO `park` VALUES (23, '用户5车位4', '阳光今典', '用户5', 2, '8:30:00', '17:30:00', 6, NULL);
+INSERT INTO `park` VALUES (24, '用户6车位1', '锦上华庭', '用户6', 1, '8:30:00', '17:30:00', 6, NULL);
+INSERT INTO `park` VALUES (25, '用户6车位2', '锦上华庭', '用户6', 1, '8:30:00', '17:30:00', 6, NULL);
+INSERT INTO `park` VALUES (26, '用户6车位3', '锦上华庭', '用户6', 1, '8:30:00', '17:30:00', 6, NULL);
+INSERT INTO `park` VALUES (27, '用户6车位4', '阳光今典', '用户6', 1, '8:30:00', '17:30:00', 6, NULL);
 
 -- ----------------------------
 -- Table structure for role
@@ -223,61 +239,11 @@ CREATE TABLE `role_menu`  (
   `role_id` bigint(20) NOT NULL COMMENT 'role表单主键',
   `menu_id` bigint(20) NOT NULL COMMENT 'menu表单主键',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 262 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 360 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu
 -- ----------------------------
-INSERT INTO `role_menu` VALUES (149, 1, 1);
-INSERT INTO `role_menu` VALUES (150, 1, 2);
-INSERT INTO `role_menu` VALUES (151, 1, 27);
-INSERT INTO `role_menu` VALUES (152, 1, 28);
-INSERT INTO `role_menu` VALUES (153, 1, 29);
-INSERT INTO `role_menu` VALUES (154, 1, 3);
-INSERT INTO `role_menu` VALUES (155, 1, 24);
-INSERT INTO `role_menu` VALUES (156, 1, 25);
-INSERT INTO `role_menu` VALUES (157, 1, 26);
-INSERT INTO `role_menu` VALUES (158, 1, 4);
-INSERT INTO `role_menu` VALUES (159, 1, 21);
-INSERT INTO `role_menu` VALUES (160, 1, 22);
-INSERT INTO `role_menu` VALUES (161, 1, 23);
-INSERT INTO `role_menu` VALUES (162, 1, 5);
-INSERT INTO `role_menu` VALUES (163, 1, 6);
-INSERT INTO `role_menu` VALUES (164, 1, 30);
-INSERT INTO `role_menu` VALUES (165, 1, 31);
-INSERT INTO `role_menu` VALUES (166, 1, 32);
-INSERT INTO `role_menu` VALUES (167, 1, 7);
-INSERT INTO `role_menu` VALUES (168, 1, 33);
-INSERT INTO `role_menu` VALUES (169, 1, 34);
-INSERT INTO `role_menu` VALUES (170, 1, 35);
-INSERT INTO `role_menu` VALUES (171, 1, 8);
-INSERT INTO `role_menu` VALUES (172, 1, 9);
-INSERT INTO `role_menu` VALUES (173, 1, 42);
-INSERT INTO `role_menu` VALUES (174, 1, 43);
-INSERT INTO `role_menu` VALUES (175, 1, 44);
-INSERT INTO `role_menu` VALUES (176, 1, 10);
-INSERT INTO `role_menu` VALUES (177, 1, 45);
-INSERT INTO `role_menu` VALUES (178, 1, 46);
-INSERT INTO `role_menu` VALUES (179, 1, 47);
-INSERT INTO `role_menu` VALUES (180, 1, 11);
-INSERT INTO `role_menu` VALUES (181, 1, 12);
-INSERT INTO `role_menu` VALUES (182, 1, 36);
-INSERT INTO `role_menu` VALUES (183, 1, 37);
-INSERT INTO `role_menu` VALUES (184, 1, 38);
-INSERT INTO `role_menu` VALUES (185, 1, 13);
-INSERT INTO `role_menu` VALUES (186, 1, 39);
-INSERT INTO `role_menu` VALUES (187, 1, 40);
-INSERT INTO `role_menu` VALUES (188, 1, 41);
-INSERT INTO `role_menu` VALUES (189, 1, 14);
-INSERT INTO `role_menu` VALUES (190, 1, 15);
-INSERT INTO `role_menu` VALUES (191, 1, 48);
-INSERT INTO `role_menu` VALUES (192, 1, 16);
-INSERT INTO `role_menu` VALUES (193, 1, 49);
-INSERT INTO `role_menu` VALUES (194, 1, 17);
-INSERT INTO `role_menu` VALUES (195, 1, 18);
-INSERT INTO `role_menu` VALUES (196, 1, 50);
-INSERT INTO `role_menu` VALUES (197, 1, 19);
-INSERT INTO `role_menu` VALUES (198, 1, 20);
 INSERT INTO `role_menu` VALUES (199, 2, 1);
 INSERT INTO `role_menu` VALUES (200, 2, 2);
 INSERT INTO `role_menu` VALUES (201, 2, 27);
@@ -324,6 +290,56 @@ INSERT INTO `role_menu` VALUES (258, 3, 49);
 INSERT INTO `role_menu` VALUES (259, 3, 17);
 INSERT INTO `role_menu` VALUES (260, 3, 18);
 INSERT INTO `role_menu` VALUES (261, 3, 50);
+INSERT INTO `role_menu` VALUES (310, 1, 1);
+INSERT INTO `role_menu` VALUES (311, 1, 2);
+INSERT INTO `role_menu` VALUES (312, 1, 27);
+INSERT INTO `role_menu` VALUES (313, 1, 28);
+INSERT INTO `role_menu` VALUES (314, 1, 29);
+INSERT INTO `role_menu` VALUES (315, 1, 3);
+INSERT INTO `role_menu` VALUES (316, 1, 24);
+INSERT INTO `role_menu` VALUES (317, 1, 25);
+INSERT INTO `role_menu` VALUES (318, 1, 26);
+INSERT INTO `role_menu` VALUES (319, 1, 4);
+INSERT INTO `role_menu` VALUES (320, 1, 21);
+INSERT INTO `role_menu` VALUES (321, 1, 22);
+INSERT INTO `role_menu` VALUES (322, 1, 23);
+INSERT INTO `role_menu` VALUES (323, 1, 5);
+INSERT INTO `role_menu` VALUES (324, 1, 6);
+INSERT INTO `role_menu` VALUES (325, 1, 30);
+INSERT INTO `role_menu` VALUES (326, 1, 31);
+INSERT INTO `role_menu` VALUES (327, 1, 32);
+INSERT INTO `role_menu` VALUES (328, 1, 7);
+INSERT INTO `role_menu` VALUES (329, 1, 33);
+INSERT INTO `role_menu` VALUES (330, 1, 34);
+INSERT INTO `role_menu` VALUES (331, 1, 35);
+INSERT INTO `role_menu` VALUES (332, 1, 8);
+INSERT INTO `role_menu` VALUES (333, 1, 9);
+INSERT INTO `role_menu` VALUES (334, 1, 42);
+INSERT INTO `role_menu` VALUES (335, 1, 43);
+INSERT INTO `role_menu` VALUES (336, 1, 44);
+INSERT INTO `role_menu` VALUES (337, 1, 10);
+INSERT INTO `role_menu` VALUES (338, 1, 45);
+INSERT INTO `role_menu` VALUES (339, 1, 46);
+INSERT INTO `role_menu` VALUES (340, 1, 47);
+INSERT INTO `role_menu` VALUES (341, 1, 11);
+INSERT INTO `role_menu` VALUES (342, 1, 12);
+INSERT INTO `role_menu` VALUES (343, 1, 36);
+INSERT INTO `role_menu` VALUES (344, 1, 37);
+INSERT INTO `role_menu` VALUES (345, 1, 38);
+INSERT INTO `role_menu` VALUES (346, 1, 13);
+INSERT INTO `role_menu` VALUES (347, 1, 39);
+INSERT INTO `role_menu` VALUES (348, 1, 40);
+INSERT INTO `role_menu` VALUES (349, 1, 41);
+INSERT INTO `role_menu` VALUES (350, 1, 14);
+INSERT INTO `role_menu` VALUES (351, 1, 15);
+INSERT INTO `role_menu` VALUES (352, 1, 48);
+INSERT INTO `role_menu` VALUES (353, 1, 16);
+INSERT INTO `role_menu` VALUES (354, 1, 49);
+INSERT INTO `role_menu` VALUES (355, 1, 17);
+INSERT INTO `role_menu` VALUES (356, 1, 18);
+INSERT INTO `role_menu` VALUES (357, 1, 50);
+INSERT INTO `role_menu` VALUES (358, 1, 19);
+INSERT INTO `role_menu` VALUES (359, 1, 20);
 
 -- ----------------------------
 -- Table structure for role_user
@@ -334,7 +350,7 @@ CREATE TABLE `role_user`  (
   `role_id` bigint(20) NOT NULL COMMENT 'role表单主键',
   `user_id` bigint(20) NOT NULL COMMENT 'user表单主键',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_user
@@ -346,6 +362,13 @@ INSERT INTO `role_user` VALUES (54, 2, 54);
 INSERT INTO `role_user` VALUES (55, 3, 55);
 INSERT INTO `role_user` VALUES (56, 3, 56);
 INSERT INTO `role_user` VALUES (57, 3, 57);
+INSERT INTO `role_user` VALUES (58, 2, 58);
+INSERT INTO `role_user` VALUES (60, 3, 60);
+INSERT INTO `role_user` VALUES (61, 3, 61);
+INSERT INTO `role_user` VALUES (64, 3, 62);
+INSERT INTO `role_user` VALUES (65, 3, 59);
+INSERT INTO `role_user` VALUES (66, 3, 63);
+INSERT INTO `role_user` VALUES (67, 3, 64);
 
 -- ----------------------------
 -- Table structure for user
@@ -363,7 +386,7 @@ CREATE TABLE `user`  (
   UNIQUE INDEX `UK_USERNAME`(`username`) USING BTREE,
   INDEX `user_role`(`role`) USING BTREE,
   CONSTRAINT `user_role` FOREIGN KEY (`role`) REFERENCES `role` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -375,6 +398,13 @@ INSERT INTO `user` VALUES (54, '管理员3', '$2a$10$FP63W.jZm6LVME7N1aK5D.D/xVo
 INSERT INTO `user` VALUES (55, '用户1', '$2a$10$yjG.x4gWNmEdE69r8QW2w.KDGP6a0/NDf3HL9CKP5uf.HXYlT5tnm', '用户', '用户1邮箱', '用户1手机号', 1);
 INSERT INTO `user` VALUES (56, '用户2', '$2a$10$GPgwvOQpErJnxnabNHlBxO8HOpu8jGcbGhS/m7UefRg35ME1zjKXG', '用户', '用户2邮箱', '用户2手机号', 1);
 INSERT INTO `user` VALUES (57, '用户3', '$2a$10$VW4LAa2X/7nwlAr7yi/h4ufLyqLfuvrWYxcuUcLjkgTsbLWPw7KGy', '用户', '用户3邮箱', '用户3手机号', 1);
+INSERT INTO `user` VALUES (58, '管理员4', '$2a$10$iGN3cZ4tiihnIizjUg/lX.rUF6VfgxEEDqS0LsqDUCAM04CkVNhOe', '管理员', '管理员4邮箱', '管理员4手机号', 1);
+INSERT INTO `user` VALUES (59, '用户4', '$2a$10$0NDC10nyZh5kfEtlTg3hUeJOrj4CGvCtp5I88BLQTNUrqDTaCZ2/q', '用户', '用户4邮箱', '用户4手机号', 0);
+INSERT INTO `user` VALUES (60, '用户5', '$2a$10$3iq4ecVJhJOt6MuJdoLLOOTA7eBJ7wYyyPCNZidv3YyBha46oDxyS', '用户', '用户5邮箱', '用户5手机号', 1);
+INSERT INTO `user` VALUES (61, '用户6', '$2a$10$BwO97GFWfCCE38pd5XQXgum4FmOZ1dVSMbux9Mwmyxn48vOdb3OFC', '用户', '用户6邮箱', '用户6邮箱', 1);
+INSERT INTO `user` VALUES (62, '用户7', '$2a$10$JmB/IoCy.f2ewnpp/rklGuFYcjookIRC5f.dT.SbTTCvw0TZCNMwe', '用户', '用户7邮箱', '用户7手机号', 0);
+INSERT INTO `user` VALUES (63, '用户8', '$2a$10$6NyFEEYXI9A6kB1jW6g4y.MccEZ/B9lYG8vbGT8TdDPkqqN0pEtxy', '用户', '用户8邮箱', '用户8手机号', 1);
+INSERT INTO `user` VALUES (64, '用户9', '$2a$10$uXbWZRXbNDk6ggjas55rjOKMIlstYYJCDMdpdndEjkIdPE2Kfeb8C', '用户', '用户9邮箱', '用户9手机号', 1);
 
 -- ----------------------------
 -- Table structure for village
