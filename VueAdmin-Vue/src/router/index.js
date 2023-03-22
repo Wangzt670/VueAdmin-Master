@@ -1,18 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+//引入Vue子组件
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Index from '../views/Index.vue'
-
-
 import UserCenter from "../views/sys_management/UserCenter.vue";
 
-
-// import axios from "axios";
+//引入用axios插件实例化的axios实例
 import axios from "../axios";
+
 import store from "../store";
 
+//引入VueRouter插件
 Vue.use(VueRouter)
 
 const routes = [
@@ -57,8 +57,10 @@ router.beforeEach((to, from, next) => {
 
     if(to.path == '/login'){
         next()
+      //放行
     }else if(!token){
         next({path:'/login'})
+      //toke为空，返回login页面
     }else if(token && !hasRoute){
       //获取导航栏请求
       axios.get("/sys/menu/nav", {
@@ -67,10 +69,10 @@ router.beforeEach((to, from, next) => {
         }
       }).then(res => {
 
-        // 拿到menuList
+        // 拿到menuList，存入store中
         store.commit("setMenuList", res.data.data.nav)
 
-        // 拿到用户权限
+        // 拿到用户权限，存入store中
         store.commit("setPermList", res.data.data.authoritys)
 
         // 动态绑定路由
@@ -97,7 +99,7 @@ router.beforeEach((to, from, next) => {
 
         router.addRoutes(newRoutes)
 
-        //hasRoute置为true,表示已经获取过路由
+        //hasRoute置为true,表示已经获取过路由，存入store中
         hasRoute = true
         store.commit("changeRouteStatus", hasRoute)
       })

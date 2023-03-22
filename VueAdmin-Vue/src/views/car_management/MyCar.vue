@@ -160,7 +160,6 @@ export default {
       tableData: [],
       tableDataUser: [],
 
-
       //校验规则
       editFormRules: {
         username: [
@@ -178,13 +177,11 @@ export default {
       delBtlStatu: true,
       //批量删除数组
       multipleSelection: [],
-
     }
   },
   created() {
     this.getUserList()
     this.getCarList()
-
   },
   methods:{
     getUserList() {

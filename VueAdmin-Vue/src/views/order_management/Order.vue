@@ -14,15 +14,6 @@
       <el-form-item>
         <el-button @click="getOrderList">搜索</el-button>
       </el-form-item>
-
-<!--      <el-form-item>
-        <el-button type="primary" @click="dialogVisible = true">新增</el-button>
-      </el-form-item>
-      <el-form-item>
-        <el-popconfirm title="确定批量删除吗？" @confirm="delHandle(null)">
-          <el-button type="danger" slot="reference" :disabled="delBtlStatu">批量删除</el-button>
-        </el-popconfirm>
-      </el-form-item>-->
     </el-form>
 
     <!--表单主体-->
@@ -105,15 +96,6 @@
 
         <template slot-scope="scope">
           <el-button type="text" @click="editHandle(scope.row.id)"v-if="hasAuth('ordman:order:update')">编辑</el-button>
-
-<!--          <el-divider direction="vertical"></el-divider>-->
-
-<!--          <template>
-            <el-popconfirm title="确定删除吗？" @confirm="delHandle(scope.row.id)">
-              <el-button type="text" slot="reference">删除</el-button>
-            </el-popconfirm>
-          </template>-->
-
         </template>
       </el-table-column>
     </el-table>
@@ -170,7 +152,6 @@ export default {
       editForm: {
 
       },
-
 
       tableData: [],
 
@@ -277,31 +258,6 @@ export default {
       this.delBtlStatu = val.length == 0
     },
 
-/*    //删除以及批量删除
-    delHandle(id) {
-      //记录勾选项id
-      var ids = []
-
-      if (id) {
-        ids.push(id)
-      } else {
-        this.multipleSelection.forEach(row => {
-          ids.push(row.id)
-        })
-      }
-
-      this.$axios.post("/parkman/park/delete", ids).then(res => {
-        this.$message({
-          showClose: true,
-          message: '删除成功！',
-          type: 'success',
-          onClose:() => {
-            this.getParkList()
-          }
-        });
-      })
-    },*/
-
     //分页方法设置
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -313,8 +269,6 @@ export default {
       this.current = val
       this.getOrderList()
     },
-
-
 
     formatterId(rows, column){
       let str = ''+rows.id

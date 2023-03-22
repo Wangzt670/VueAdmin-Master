@@ -11,7 +11,6 @@
         :scroll-wheel-zoom="true"
         @ready="onReady"
     >
-
       <template v-for="item in tableDataVillage">
         <bm-marker :position="{lng: item.lng, lat: item.lat}"></bm-marker>
       </template>
@@ -36,7 +35,6 @@ export default {
   created() {
     this.getVillageList()
   },
-
   methods:{
     onReady({ BMap, map }) {
       this.BMap = BMap
@@ -48,14 +46,11 @@ export default {
         this.tableDataVillage = res.data.data.records
       })
     },
-
   }
-
 }
 </script>
 
 <style scoped>
-
 .bm-view {
   width: 100%;
   height: 1000px;

@@ -153,7 +153,6 @@
 
     </el-dialog>
 
-
   </div>
 </template>
 
@@ -196,16 +195,6 @@ export default {
       delBtlStatu: true,
       //批量删除数组
       multipleSelection: [],
-
-/*      //分配角色对话框参数声明
-      roleDialogFormVisible: false,
-      defaultProps: {
-        children: 'children',
-        label: 'name'
-      },
-      roleForm: {},
-      roleTreeData:  [],*/
-
     }
   },
   created() {
@@ -213,16 +202,6 @@ export default {
     this.getRoleList()
   },
   methods: {
-    //?
-/*    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },*/
     getRoleList() {
       this.$axios.get("/sys/user/getrolelist").then(res => {
         this.tableDataRole = res.data.data.records
@@ -336,12 +315,10 @@ export default {
 </script>
 
 <style scoped>
-
 .el-pagination {
   float: right;
   margin-top: 22px;
 }
-
 </style>
 
 

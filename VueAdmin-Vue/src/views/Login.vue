@@ -15,6 +15,7 @@
 
       <el-col :xl="6" :lg="7">
         <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="80px">
+
           <el-form-item label="用户名" prop="username" style="width: 380px;">
             <el-input v-model="loginForm.username"></el-input>
           </el-form-item>
@@ -30,6 +31,7 @@
             <el-button type="primary" @click="submitForm('loginForm')">登 录</el-button>
             <el-button @click="logonHandle">注 册</el-button>
           </el-form-item>
+
         </el-form>
 
         <!--注册对话框-->
@@ -85,12 +87,14 @@ export default {
   name: "Login",
   data() {
     return {
+      //登录参数
       loginForm: {
         username: '',
         password: '',
         code: '',
         token: ''
       },
+          //登录表单校验规则
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
@@ -103,15 +107,14 @@ export default {
           { min: 5, max: 5, message: '长度为 5 个字符', trigger: 'blur' }
         ],
       },
+          //验证码图片
       captchaImg: null,
-
-
 
       //注册参数
       dialogVisible:false,
       logonForm:{},
       tableDataRole:[],
-
+          //注册表单校验规则
       logonFormRules: {
         username: [
           {required: true, message: '请输入用户名称', trigger: 'blur'}
@@ -125,7 +128,7 @@ export default {
   },
   methods: {
 
-
+    //提交表单方法
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -146,27 +149,7 @@ export default {
       });
     },
 
-    //纯前端登录
-/*    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          //提交表单
-          this.$axios.post('/login',this.loginForm).then(res => {
-
-            console.log(res)
-
-            const jwt = res.headers['authorization']
-            // 调用SET_TOKEN方法将jwt存储到应用store中
-            this.$store.commit('SET_TOKEN', jwt)
-            this.$router.push("/index")
-          })
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
-    },*/
-
+    //获取验证码方法
     getCaptcha() {
       this.$axios.get('/captcha').then(res => {
 
@@ -197,7 +180,6 @@ export default {
     handleClose() {
       this.resetForm('logonForm')
     },
-
     submitlogonForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -219,8 +201,6 @@ export default {
         }
       });
     },
-
-
 
   },
   created() {

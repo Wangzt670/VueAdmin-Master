@@ -177,13 +177,11 @@ export default {
       delBtlStatu: true,
       //批量删除数组
       multipleSelection: [],
-
     }
   },
   created() {
     this.getCarList()
     this.getUserList()
-
   },
   methods:{
     getUserList() {
@@ -300,10 +298,8 @@ export default {
 </script>
 
 <style scoped>
-
 .el-pagination {
   float: right;
   margin-top: 22px;
 }
-
 </style>

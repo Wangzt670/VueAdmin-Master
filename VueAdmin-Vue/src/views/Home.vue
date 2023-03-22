@@ -16,21 +16,16 @@
 
           <el-dropdown>
 						<span class="el-dropdown-link">
-<!--						{{userInfo.username}}<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
 						{{userInfo.username}}<i class="el-icon-arrow-down el-icon--right"></i>
 						</span>
             <el-dropdown-menu slot="dropdown">
-              <!--              <el-dropdown-item>
-                              <router-link :to="{name: 'UserCenter'}">个人中心</router-link>
-                            </el-dropdown-item>
-                            <el-dropdown-item @click.native="logout">退出</el-dropdown-item>-->
               <el-dropdown-item>
                 <router-link :to="{name: 'UserCenter'}">
                   个人中心
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item @click.native="logout">
-                退出
+                  退出
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>

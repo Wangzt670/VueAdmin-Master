@@ -16,6 +16,7 @@
       </el-form-item>
     </el-form>
 
+
     <baidu-map
         class="bm-view"
         :center="mapCenter"
@@ -127,7 +128,6 @@
     </baidu-map>
 
 
-
     <!--新增订单对话框-->
     <el-dialog
         title="新建订单"
@@ -170,10 +170,7 @@
         <el-button @click="handleOrderFormClose">取 消</el-button>
         <el-button type="primary" @click="submitOrderForm('OrderForm')">确 定</el-button>
       </div>
-
     </el-dialog>
-
-
 
     </div>
 </template>
@@ -197,13 +194,11 @@ export default {
       size: 10,
       current: 1,
 
-
       tableDataVillage: [],
       tableDataPark: [],
 
       infoVisible:false,
       currentVillageName:"",
-      // dialogTitle:this.currentVillageName+"小区车位详情",
       dialogTitle:"",
 
       //创建订单
@@ -227,8 +222,6 @@ export default {
     this.getUserInfo()
   },
   methods: {
-
-
     onReady({ BMap, map }) {
       this.BMap = BMap
       this.map = map
@@ -241,8 +234,6 @@ export default {
         this.tableDataVillage = res.data.data.records
       })
     },
-
-
     infoWindowOpen(item){
       // console.log(item.lng)
       // console.log(item.lat)
@@ -261,24 +252,6 @@ export default {
       this.infoVisible = false
       this.currentVillageName = ""
     },
-
-
-/*    getParkList(){
-      this.$axios.get("/locview/locview/getparklist", {
-        params: {
-          id:this.currentVillageID,
-          statu:1,
-          current: this.current,
-          size: this.size
-        }
-      }).then(res => {
-        this.tableDataPark = res.data.data.records
-        this.size = res.data.data.size
-        this.current = res.data.data.current
-        this.total = res.data.data.total
-      })
-    },*/
-
     getParkList(){
       // console.log(this.currentVillageName)
       this.$axios.get("/locview/locview/getparklist",{
@@ -294,7 +267,6 @@ export default {
         this.total = res.data.data.total
       })
     },
-
     //分页方法设置
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -306,8 +278,7 @@ export default {
       this.current = val
       this.getParkList()
     },
-
-//////////////////////////////创建订单子功能项//////////////
+//////////////////////////////创建订单子功能项//////////////////////////////
     getUserInfo() {
       this.$axios.get("/locview/locview/getuserinfo").then(res => {
         this.userInfo = res.data.data.records[0]
@@ -322,8 +293,6 @@ export default {
         this.total = res.data.data.total
       })
     },
-
-
     getCurrentTime() {
       //获取当前时间并打印
       var _this = this;
@@ -336,7 +305,6 @@ export default {
       _this.gettime = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
       return _this.gettime
     },
-
     OrderCreateHandle(id){
       this.getCarList()
 
@@ -347,23 +315,19 @@ export default {
         this.OrderForm.villagename = res.data.data.villagename
         this.OrderForm.lease = res.data.data.username
 
-
         this.OrderForm.rent = this.userInfo.username
         this.OrderFormVisible = true
       })
     },
-
     handleOrderFormClose(){
       this.OrderFormVisible = false
       this.OrderForm = {}
     },
-
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.OrderFormVisible = false
       this.editForm = {}
     },
-
     submitOrderForm(formName){
 
       this.OrderForm.statu = 0
@@ -390,13 +354,11 @@ export default {
         }
       });
     }
-
   }
 }
 </script>
 
 <style>
-
 .bm-view {
   width: 100%;
   height: 1000px;
@@ -406,6 +368,5 @@ export default {
   float: left;
   margin-top: 22px;
 }
-
 </style>
 

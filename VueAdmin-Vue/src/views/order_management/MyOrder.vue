@@ -168,16 +168,8 @@ export default {
   },
   created() {
     this.getOrderList()
-    // this.getUserInfo()
   },
   methods:{
-
-    // getUserInfo() {
-    //   this.$axios.get("/ordman/myorder/getuserinfo").then(res => {
-    //     this.userInfo = res.data.data
-    //   })
-    // },
-
     //更新以及查询
     getOrderList() {
       this.$axios.get("/ordman/myorder/list", {
@@ -307,5 +299,4 @@ export default {
   float: right;
   margin-top: 22px;
 }
-
 </style>

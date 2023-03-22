@@ -361,28 +361,14 @@ export default {
         this.resetForm(formName)
       })
     },
-
-    //？不知道干嘛的
-/*    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    }*/
-
   }
 }
 </script>
 
 <style scoped>
-
 /*分页组件样式*/
 .el-pagination {
   float: right;
   margin-top: 22px;
 }
-
 </style>

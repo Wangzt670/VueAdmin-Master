@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import menus from "@/store/modules/menus";
 
+//引入Vuex插件，组件间通信
 Vue.use(Vuex)
 
 export default new Vuex.Store({
