@@ -137,7 +137,7 @@
 
       <el-form :model="OrderForm" :rules="OrderFormRules" ref="OrderForm" label-width="100px">
 
-        <el-form-item label="订单编号"  prop="ordernum">
+        <el-form-item label="开始时间"  prop="orderstart">
           <el-input v-model="OrderForm.orderstart" autocomplete="off"></el-input>
         </el-form-item>
 

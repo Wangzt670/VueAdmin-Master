@@ -206,12 +206,8 @@ export default {
 
           if(this.editForm.statu == 0){
             this.editForm.orderend = this.getCurrentTime()
-            console.log(this.editForm.orderend)
-            console.log(this.editForm.orderstart)
 
             let hour = this.getHour(this.editForm.orderstart,this.editForm.orderend)
-            console.log(1)
-            console.log(hour)
 
             this.editForm.cost = hour
           }

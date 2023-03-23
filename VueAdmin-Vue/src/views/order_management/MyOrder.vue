@@ -204,7 +204,6 @@ export default {
             this.editForm.orderend = this.getCurrentTime()
 
             let hour = this.getHour(this.editForm.orderstart,this.editForm.orderend)
-            console.log(hour)
 
             this.editForm.cost = hour
           }

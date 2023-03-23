@@ -112,7 +112,7 @@ v 0.0.9
 
 ## 二、系统功能
 
-### 1.登录模块
+### 1.基础模块
 
 #### （1）认证
 
@@ -206,28 +206,109 @@ v 0.0.9
 |          | 登出成功，跳转到JwtLogoutSuccessHandler   | JwtLogoutSuccessHandler     |
 |          | 清除请求头中Jwt，store、localStorage中Jwt | JwtLogoutSuccessHandler     |
 
-### 2.系统管理
+#### （6）修改密码
 
-#### （1）用户管理
+| 前端           |                          | 后端           |
+| -------------- | ------------------------ | -------------- |
+| UserCenter.vue | 填写重置密码表单         |                |
+|                | 新密码与确认密码是否一致 |                |
+|                | 新密码长度是否规范       |                |
+|                | 提交重置密码表单         |                |
+|                | 校验旧密码是否正确       | UserController |
+|                | 正确则更新密码           | UserController |
+| UserCenter.vue | 错误返回错误提示         | UserController |
 
-#### （2）角色管理
+### 2.核心功能模块
 
-#### （3）菜单管理
+其中，系统管理中的角色管理、用户管理、菜单管理，以及小区管理、车位管理、车辆管理中的表单与查询、新增与编辑两大功能的设计逻辑大体一致，首先进行统一设计。再对核心功能模块下各模块中的特别功能进行设计阐述。
 
-### 3.小区管理
+#### （1）表单与查询
 
-#### （1）更新或查询
+| 前端     |                        | 后端           |
+| -------- | ---------------------- | -------------- |
+| 主体.Vue | 发送表单更新或查询请求 |                |
+|          | 调用主体Service        | 主体Controller |
+|          | 查询数据库，返回数据   | 主体Service    |
+| 主体.Vue | 展示相应表单           |                |
 
-#### （2）新增或编辑
+#### （2）新增与编辑
 
-### 4.车位管理
+| 前端     |                                                  | 后端           |
+| -------- | ------------------------------------------------ | -------------- |
+| 主体.Vue | 点击编辑，发送单个主体查询信息请求               |                |
+|          | 调用主体Service                                  | 主体Controller |
+|          | 查询数据库，返回数据                             | 主体Service    |
+|          | （表单中存在其它主体对象则发送相应查询信息请求） |                |
+| 主体.Vue | 回显新增/编辑表单                                |                |
+| 主体.Vue | 填写新增/编辑表单                                |                |
+| 主体.Vue | 校验表单                                         |                |
+| 主体.Vue | 提交表单                                         |                |
+|          | 调用主体Service                                  | 主体Controller |
+|          | 存入数据到数据库                                 | 主体Service    |
+| 主体.Vue | 成功，发送更新表单请求                           |                |
 
-### 5.车辆管理
+#### （3）角色管理-分配权限
 
-### 6.订单管理
+| 前端     |                                              | 后端            |
+| -------- | -------------------------------------------- | --------------- |
+| Role.vue | 点击编辑，发送对应角色的查询信息请求         |                 |
+|          | 通过roleService获取role后调用roleMenuService | RoleController  |
+|          | 获取对应角色拥有的权限与菜单，返回数据       | roleMenuService |
+| Role.vue | 回显角色拥有的权限与菜单，标记节点           |                 |
+| Role.vue | 提交权限表，调用roleMenuService、userService | RoleController  |
+|          | 存入新的权限表                               | roleMenuService |
+|          | 删除缓存，redis中对应角色的权限信息          | userService     |
+|          | 返回成功信息                                 | RoleController  |
 
-### 7.定位显示
+#### （4）订单管理-编辑订单
 
-### 8.数据显示
+| 前端      |                                                          | 后端             |
+| --------- | -------------------------------------------------------- | ---------------- |
+| Order.vue | 点击编辑，发送对应订单的查询信息请求                     |                  |
+|           | 调用IndentService                                        | IndentController |
+|           | 查询数据库                                               | IndentService    |
+| Order.vue | 若订单状态为已结束则返回提示信息不可编辑                 | IndentService    |
+| Order.vue | 进行中则返回数据                                         | IndentService    |
+| Order.vue | 回显状态                                                 |                  |
+| Order.vue | 将订单置为已结束状态，得到结束时间，得到订单总时长       |                  |
+|           | 调用parkService、carService                              | IndentController |
+|           | 对应车位状态置为空闲，得到车位价格信息到IndentController | parkService      |
+|           | 对应车辆状态置为空闲                                     | carService       |
+|           | 计算得到订单总价，调用IndentService                      | IndentController |
+|           | 订单状态、结束时间、总价更新，存入数据库                 | IndentService    |
+|           | 返回成功信息                                             | IndentController |
+| Order.vue | 成功，发送更新表单请求                                   |                  |
 
-## 三、目录
+#### （5）定位查找-创建订单
+
+| 前端             |                                                    | 后端                  |
+| ---------------- | -------------------------------------------------- | --------------------- |
+| LocationView.vue | 获取小区信息                                       |                       |
+|                  | 调用villageService                                 | LoctionViewController |
+|                  | 返回状态正常的小区信息                             | villageService        |
+| LocationView.vue | 根据小区经纬度渲染地图标点                         |                       |
+| LocationView.vue | 点击小区标点，发送查询对应小区车位详情请求         |                       |
+|                  | 调用parkService                                    | LoctionViewController |
+|                  | 返回状态空闲的车位信息                             | parkService           |
+| LocationView.vue | 显示表单                                           |                       |
+| LocationView.vue | 点击创建订单，获取订单开始时间、获取车辆、用户信息 |                       |
+|                  | carService、userService                            | LoctionViewController |
+|                  | 返回出租人信息                                     | userService           |
+|                  | 返回空闲车辆                                       | carService            |
+| LocationView.vue | 显示新建订单对话框，填充信息                       |                       |
+| LocationView.vue | 提交表单                                           |                       |
+|                  | 订单状态置为进行中                                 | LoctionViewController |
+|                  | 对应车位状态置占用                                 | parkService           |
+|                  | 对应车辆状态置占用                                 | carService            |
+|                  | 存入新订单                                         | indentService         |
+|                  | 返回成功信息                                       | LoctionViewController |
+| LocationView.vue | 成功，发送更新表单请求                             |                       |
+
+### 3.辅助模块-数据显示
+
+| 前端               |                          | 后端                 |
+| ------------------ | ------------------------ | -------------------- |
+| StatisticsView.vue | 发送获取数据请求         |                      |
+|                    | 调用所有主体Service      | StatisticsController |
+|                    | 返回数据                 | 所有主体Service      |
+| StatisticsView.vue | 展示数据统计表、统计饼图 |                      |
