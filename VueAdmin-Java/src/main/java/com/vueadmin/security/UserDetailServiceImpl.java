@@ -34,13 +34,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         User user = userService.getByUsername(username);
 
-        RoleUser roleUser = roleUserService.getOne(new QueryWrapper<RoleUser>().in("user_id", user.getId()));
-
-        Role role = roleService.getOne(new QueryWrapper<Role>().in("id", roleUser.getRoleId()));
-
         if (user == null) {
             throw new UsernameNotFoundException("用户名或密码不正确");
         }
+
+        RoleUser roleUser = roleUserService.getOne(new QueryWrapper<RoleUser>().in("user_id", user.getId()));
+
+        Role role = roleService.getOne(new QueryWrapper<Role>().in("id", roleUser.getRoleId()));
 
         boolean enabled = true;
         if(user.getStatu() == 0){
