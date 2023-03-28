@@ -4,8 +4,11 @@ import axios from "axios";
 import router from "./router";
 import Element from "element-ui"
 
+//开发环境
+//axios.defaults.baseURL = "http://localhost:8081"
 
-axios.defaults.baseURL = "http://localhost:8081"
+//部署环境
+axios.defaults.baseURL = "http://8.130.82.204:8081"
 
 
 const request = axios.create({
